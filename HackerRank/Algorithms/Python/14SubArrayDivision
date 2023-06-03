@@ -118,3 +118,51 @@ if __name__ == '__main__':
 
     fptr.close()
 """
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+from functools import reduce
+#
+# Complete the 'birthday' function below.
+#
+# The function is expected to return an INTEGER.
+# The function accepts following parameters:
+#  1. INTEGER_ARRAY s
+#  2. INTEGER d
+#  3. INTEGER m
+#
+
+
+def add(a, b): # function to add elements in our subarray
+  return a + b
+
+def birthday(s, d, m):
+  counter = 0
+  for i in range(len(s)): # loop through array S
+    temp_list = s[i:i+m] # create subarray of length M
+    if reduce(add, temp_list) == d: # if elements in subarray add up to D
+      counter += 1
+  return counter
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    n = int(input().strip())
+
+    s = list(map(int, input().rstrip().split()))
+
+    first_multiple_input = input().rstrip().split()
+
+    d = int(first_multiple_input[0])
+
+    m = int(first_multiple_input[1])
+
+    result = birthday(s, d, m)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
