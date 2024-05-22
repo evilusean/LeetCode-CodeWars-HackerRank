@@ -1,7 +1,5 @@
 /*
 Write a function createHelloWorld. It should return a new function that always returns "Hello World".
- 
-
 Example 1:
 
 Input: args = []
@@ -26,3 +24,14 @@ Constraints:
 
 0 <= args.length <= 10
 */
+
+var createHelloWorld = function () {
+  return function (...args) {
+    // console.log("Hello World");
+    return "Hello World";
+  };
+};
+const helloWorldFunction = createHelloWorld();
+
+helloWorldFunction({}, null, 42);
+helloWorldFunction();
