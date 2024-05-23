@@ -23,7 +23,7 @@ Explanation: counter() initially returns -2. Then increases after each sebsequen
  */
 
 var createCounter = function (n) {
-  const counter = n;
+  let counter = n;
   return function () {
     return counter++;
   };
