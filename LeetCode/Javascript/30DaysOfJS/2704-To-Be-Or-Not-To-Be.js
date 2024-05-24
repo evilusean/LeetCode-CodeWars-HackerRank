@@ -25,7 +25,9 @@ Explanation: 5 !== null so this expression returns true.
  * @param {string} val
  * @return {Object}
  */
-var expect = function (val) {};
+var expect = function (val) {
+    if (val === expextedVal) // how do you break apart the value into 2?
+};
 
 /**
  * expect(5).toBe(5); // true
