@@ -26,12 +26,13 @@ Explanation: 5 !== null so this expression returns true.
  * @return {Object}
  */
 var expect = function (val) {
-  if (val === expextedVal) {
+  if (expect === toBe) {
     return { value: true };
   } else {
-    return { error: "Not Equal" };
+    throw new Error("Not Equal");
   }
   // how do you break apart the value into 2?
+  // '() => expect(5).toBe(5)' <= how it inputs,
 };
 
 /**
