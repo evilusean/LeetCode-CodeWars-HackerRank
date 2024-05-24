@@ -26,7 +26,12 @@ Explanation: 5 !== null so this expression returns true.
  * @return {Object}
  */
 var expect = function (val) {
-    if (val === expextedVal) // how do you break apart the value into 2?
+  if (val === expextedVal) {
+    return { value: true };
+  } else {
+    return { error: "Not Equal" };
+  }
+  // how do you break apart the value into 2?
 };
 
 /**
