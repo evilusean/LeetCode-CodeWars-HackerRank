@@ -41,7 +41,28 @@ calls[i] is one of "increment", "decrement" and "reset"
  * @param {integer} init
  * @return { increment: Function, decrement: Function, reset: Function }
  */
-var createCounter = function (init) {};
+var createCounter = function (init) {
+  let currentValue = init;
+  return {
+    // The `increment` function increases the `currentValue` by 1 and returns the updated value.
+    increment: function () {
+      currentValue++;
+      return currentValue;
+    },
+
+    // The `decrement` function decreases the `currentValue` by 1 and returns the updated value.
+    decrement: function () {
+      currentValue--;
+      return currentValue;
+    },
+
+    // The `reset` function sets the `currentValue` back to the initial value (`init`) and returns the reset value.
+    reset: function () {
+      currentValue = init;
+      return currentValue;
+    },
+  };
+};
 
 /**
  * const counter = createCounter(5)
