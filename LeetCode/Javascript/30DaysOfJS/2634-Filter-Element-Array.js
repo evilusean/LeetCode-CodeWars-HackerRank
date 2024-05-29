@@ -38,11 +38,13 @@ Constraints:
  * @return {number[]}
  */
 var filter = function (arr, fn) {
-  const filteredArr = [];
+  const filteredArr = []; // Initialize an empty array to store the filtered elements.
   for (let i = 0; i < arr.length; i++) {
+    // Loop through each element in the input array.
     if (fn(arr[i], i)) {
-      filteredArr.push(arr[i]);
+      // Call the filtering function with the current element and its index.
+      filteredArr.push(arr[i]); // If the filtering function returns a truthy value, push the element to the array
     }
   }
-  return filteredArr;
+  return filteredArr; // Return the filtered array.
 };
