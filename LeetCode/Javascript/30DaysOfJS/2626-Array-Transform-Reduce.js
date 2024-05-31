@@ -57,4 +57,26 @@ Constraints:
  * @param {number} init
  * @return {number}
  */
-var reduce = function (nums, fn, init) {};
+var reduce = function (nums, fn, init) {
+  // Check if the array is empty
+  if (nums.length === 0) {
+    return init;
+  }
+
+  // Initialize the accumulator with the initial value
+  let accumulator = init;
+
+  // Iterate through the array, starting from the second element
+  for (let i = 1; i < nums.length; i++) {
+    // Apply the function to the accumulator and the current element
+    accumulator = fn(accumulator, nums[i]);
+  }
+
+  // Return the final value of the accumulator
+  return accumulator;
+};
+/* ONE LINER:
+var reduce = function(nums, fn, init) {
+    return nums.reduce(fn,init)
+};
+*/
