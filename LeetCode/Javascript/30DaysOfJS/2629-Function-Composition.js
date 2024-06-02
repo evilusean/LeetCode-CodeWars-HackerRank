@@ -42,7 +42,24 @@ all functions accept and return a single integer
  * @return {Function}
  */
 var compose = function (functions) {
-  return function (x) {};
+  return function (x) {
+    // Check if the array of functions is empty
+    if (functions.length === 0) {
+      return x;
+    }
+
+    // Initialize a variable to store the result
+    let result = x;
+
+    // Iterate through the array of functions in reverse order
+    for (let i = functions.length - 1; i >= 0; i--) {
+      // Apply the current function to the result
+      result = functions[i](result);
+    }
+
+    // Return the final result
+    return result;
+  };
 };
 
 /**
