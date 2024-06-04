@@ -1,17 +1,13 @@
 /*
 Given a function fn, return a memoized version of that function.
-
 A memoized function is a function that will never be called twice with the same inputs. Instead it will return a cached value.
-
 You can assume there are 3 possible input functions: sum, fib, and factorial.
-
-sum accepts two integers a and b and returns a + b. Assume that if a value has already been cached for the arguments (b, a) where a != b, it cannot be used for the arguments (a, b). For example, if the arguments are (3, 2) and (2, 3), two separate calls should be made.
+sum accepts two integers a and b and returns a + b. Assume that if a value has already been cached for the arguments (b, a) where a != b,
+ it cannot be used for the arguments (a, b). For example, if the arguments are (3, 2) and (2, 3), two separate calls should be made.
 fib accepts a single integer n and returns 1 if n <= 1 or fib(n - 1) + fib(n - 2) otherwise.
 factorial accepts a single integer n and returns 1 if n <= 1 or factorial(n - 1) * n otherwise.
- 
 
 Example 1:
-
 Input:
 fnName = "sum"
 actions = ["call","call","getCallCount","call","getCallCount"]
@@ -25,8 +21,8 @@ memoizedSum(2, 2); // "call" - returns 4. However sum() was not called because t
 // "getCallCount" - total call count: 1
 memoizedSum(1, 2); // "call" - returns 3. sum() was called as (1, 2) was not seen before.
 // "getCallCount" - total call count: 2
-Example 2:
 
+Example 2:
 Input:
 fnName = "factorial"
 actions = ["call","call","call","getCallCount","call","getCallCount"]
@@ -41,8 +37,8 @@ memoFactorial(2); // "call" - returns 2. However factorial was not called becaus
 // "getCallCount" - total call count: 2
 memoFactorial(3); // "call" - returns 6. However factorial was not called because 3 was seen before.
 // "getCallCount" - total call count: 2
-Example 3:
 
+Example 3:
 Input:
 fnName = "fib"
 actions = ["call","getCallCount"]
@@ -52,9 +48,7 @@ Explanation:
 fib(5) = 8 // "call"
 // "getCallCount" - total call count: 1
  
-
 Constraints:
-
 0 <= a, b <= 105
 1 <= n <= 10
 0 <= actions.length <= 105
