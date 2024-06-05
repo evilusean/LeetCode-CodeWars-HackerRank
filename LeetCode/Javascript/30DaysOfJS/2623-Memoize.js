@@ -62,7 +62,17 @@ fnName is one of "sum", "factorial" and "fib"
  * @return {Function}
  */
 function memoize(fn) {
-  return function (...args) {};
+  const cache = {};
+
+  return function (...args) {
+    const key = JSON.stringify(args);
+
+    if (cache[key] === undefined) {
+      cache[key] = fn(...args);
+    }
+
+    return cache[key];
+  };
 }
 
 /**
