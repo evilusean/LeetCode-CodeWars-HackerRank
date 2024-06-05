@@ -62,15 +62,21 @@ fnName is one of "sum", "factorial" and "fib"
  * @return {Function}
  */
 function memoize(fn) {
+  // Create a cache object to store the results of previous function calls.
   const cache = {};
 
+  // Return a new function that wraps the original function.
   return function (...args) {
+    // Create a key for the cache based on the function arguments.
     const key = JSON.stringify(args);
 
+    // If the result for the given arguments is not in the cache,
+    // call the original function and store the result in the cache.
     if (cache[key] === undefined) {
       cache[key] = fn(...args);
     }
 
+    // Return the result from the cache.
     return cache[key];
   };
 }
