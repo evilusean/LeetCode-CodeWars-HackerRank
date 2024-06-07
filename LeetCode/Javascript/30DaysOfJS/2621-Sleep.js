@@ -23,7 +23,13 @@ Constraints:
  * @param {number} millis
  * @return {Promise}
  */
-async function sleep(millis) {}
+async function sleep(millis) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(millis);
+    }, millis);
+  });
+}
 
 /**
  * let t = Date.now()
