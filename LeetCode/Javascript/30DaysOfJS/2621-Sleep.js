@@ -24,8 +24,11 @@ Constraints:
  * @return {Promise}
  */
 async function sleep(millis) {
+  // Create a new promise that will be resolved after the specified delay.
   return new Promise((resolve) => {
+    // Schedule a callback function to be executed after the specified delay using setTimeout.
     setTimeout(() => {
+      // Resolve the promise with the value of millis.
       resolve(millis);
     }, millis);
   });
