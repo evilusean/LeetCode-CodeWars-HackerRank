@@ -48,20 +48,31 @@ args is a valid JSON array
  * @return {Function}
  */
 var cancellable = function (fn, args, t) {
+  // Create a timeout ID to track the scheduled execution of the function.
   let timeoutId;
+
+  // Create a flag to indicate whether the function execution has been cancelled.
   let cancelled = false;
 
+  // Define the cancel function that can be used to cancel the scheduled execution.
   const cancelFn = () => {
+    // Set the cancelled flag to true to indicate that the execution has been cancelled.
     cancelled = true;
+
+    // Clear the timeout using clearTimeout to prevent the function from being executed.
     clearTimeout(timeoutId);
   };
 
+  // Schedule the execution of the function using setTimeout with the specified delay.
   timeoutId = setTimeout(() => {
+    // Check if the function execution has not been cancelled.
     if (!cancelled) {
+      // Execute the function with the provided arguments.
       fn(...args);
     }
   }, t);
 
+  // Return the cancel function so that it can be used to cancel the scheduled execution.
   return cancelFn;
 };
 
