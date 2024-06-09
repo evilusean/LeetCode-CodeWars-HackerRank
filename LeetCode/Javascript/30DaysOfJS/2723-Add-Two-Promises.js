@@ -28,6 +28,16 @@ promise1 and promise2 are promises that resolve with a number
  * @return {Promise}
  */
 var addTwoPromises = async function (promise1, promise2) {
+  // Define an asynchronous function called addTwoPromises that takes two promises, promise1 and promise2, as arguments.
+  // The function returns a new promise that resolves with the sum of the two numbers resolved by the input promises.
+
+  // Use the async/await syntax to handle the asynchronous nature of promises.
+  // The await keyword is used to wait for the resolutions of both promise1 and promise2.
+  // This ensures that the function does not proceed until both promises have resolved.
+
+  // Once both promises have resolved, their resolved values are stored in the variables result1 and result2.
+  // The function then calculates the sum of these values and returns it.
+
   const result1 = await promise1;
   const result2 = await promise2;
   return result1 + result2;
