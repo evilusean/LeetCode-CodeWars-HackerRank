@@ -95,8 +95,27 @@ args is a valid JSON array
  * @param {number} t
  * @return {Function}
  */
-var cancellable = function (fn, args, t) {};
+var cancellable = function (fn, args, t) {
+  let timeoutId;
+  let cancelled = false;
+  let result = [];
 
+  const cancelFn = () => {
+    cancelled = true;
+    clearTimeout(timeoutId);
+  };
+
+  const callFn = () => {
+    if (!cancelled) {
+      result.push({ time: Date.now(), returned: fn(...args) });
+      timeoutId = setTimeout(callFn, t);
+    }
+  };
+
+  timeoutId = setTimeout(callFn, 0);
+
+  return cancelFn;
+};
 /**
  *  const result = [];
  *
