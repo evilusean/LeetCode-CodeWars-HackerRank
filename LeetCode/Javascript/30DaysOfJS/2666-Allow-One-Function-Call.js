@@ -33,15 +33,26 @@ calls is a valid JSON array
  * @return {Function}
  */
 var once = function (fn) {
+  // Create a flag to track whether the function has been called.
   let hasBeenCalled = false;
+
+  // Create a variable to store the result of the function call.
   let result;
 
+  // Return a new function that wraps the original function.
   return function () {
+    // Check if the function has already been called.
     if (!hasBeenCalled) {
+      // If the function has not been called, set the flag to true.
       hasBeenCalled = true;
+
+      // Call the original function with the provided arguments.
       result = fn.apply(this, arguments);
+
+      // Return the result of the function call.
       return result;
     } else {
+      // If the function has already been called, return undefined.
       return undefined;
     }
   };
