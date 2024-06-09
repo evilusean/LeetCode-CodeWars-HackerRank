@@ -96,26 +96,41 @@ args is a valid JSON array
  * @return {Function}
  */
 var cancellable = function (fn, args, t) {
-  let timeoutId;
-  let cancelled = false;
-  let result = [];
-
-  const cancelFn = () => {
-    cancelled = true;
-    clearTimeout(timeoutId);
-  };
-
-  const callFn = () => {
-    if (!cancelled) {
-      result.push({ time: Date.now(), returned: fn(...args) });
-      timeoutId = setTimeout(callFn, t);
-    }
-  };
-
-  timeoutId = setTimeout(callFn, 0);
-
-  return cancelFn;
-};
+    // Create a timeout ID to track the scheduled execution of the function.
+    let timeoutId;
+  
+    // Create a cancelled flag to indicate whether the function execution has been cancelled.
+    let cancelled = false;
+  
+    // Create a result array to store the results of each execution of the function.
+    let result = [];
+  
+    // Define the cancel function that can be used to cancel the scheduled execution.
+    const cancelFn = () => {
+      // Set the cancelled flag to true to indicate that the execution has been cancelled.
+      cancelled = true;
+  
+      // Clear the timeout using clearTimeout to prevent the function from being executed.
+      clearTimeout(timeoutId);
+    };
+  
+    // Define the call function that will execute the function and schedule the next execution.
+    const callFn = () => {
+      // Check if the function execution has not been cancelled.
+      if (!cancelled) {
+        // Execute the function with the provided arguments.
+        result.push({ time: Date.now(), returned: fn(...args) });
+  
+        // Schedule the next execution of the function using setTimeout with the specified interval.
+        timeoutId = setTimeout(callFn, t);
+      }
+    };
+  
+    // Schedule the initial execution of the function using setTimeout with a delay of 0 milliseconds.
+    timeoutId = setTimeout(callFn, 0);
+  
+    // Return the cancel function so that it can be used to cancel the scheduled execution.
+    retur
 /**
  *  const result = [];
  *
