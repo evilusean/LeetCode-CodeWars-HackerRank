@@ -75,7 +75,28 @@ fn returns a promise
  * @return {Function}
  */
 var timeLimit = function (fn, t) {
-  return async function (...args) {};
+  return async function (...args) {
+    // Create a Promise that resolves after the specified time limit.
+    const timeoutPromise = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        reject("Time Limit Exceeded");
+      }, t);
+    });
+
+    // Create a Promise that resolves with the result of the original function.
+    const fnPromise = fn(...args);
+
+    // Use Promise.race to wait for the first Promise to resolve.
+    const result = await Promise.race([fnPromise, timeoutPromise]);
+
+    // If the result is the timeoutPromise, reject with "Time Limit Exceeded".
+    if (result === "Time Limit Exceeded") {
+      throw result;
+    }
+
+    // Otherwise, return the result of the original function.
+    return result;
+  };
 };
 
 /**
