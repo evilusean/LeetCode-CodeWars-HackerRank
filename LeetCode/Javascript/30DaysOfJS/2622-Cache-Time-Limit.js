@@ -47,39 +47,57 @@ actions.length === timeDelays.length
 actions[i] is one of "TimeLimitedCache", "set", "get" and "count"
 First action is always "TimeLimitedCache" and must be executed immediately, with a 0-millisecond delay
 */
-
-var TimeLimitedCache = function() {
-    
-};
-
 /** 
  * @param {number} key
  * @param {number} value
  * @param {number} duration time until expiration in ms
  * @return {boolean} if un-expired key already existed
  */
-TimeLimitedCache.prototype.set = function(key, value, duration) {
-    
-};
-
 /** 
  * @param {number} key
  * @return {number} value associated with key
  */
-TimeLimitedCache.prototype.get = function(key) {
-    
-};
-
 /** 
  * @return {number} count of non-expired keys
  */
-TimeLimitedCache.prototype.count = function() {
-    
-};
-
 /**
  * const timeLimitedCache = new TimeLimitedCache()
  * timeLimitedCache.set(1, 42, 1000); // false
  * timeLimitedCache.get(1) // 42
  * timeLimitedCache.count() // 1
  */
+var TimeLimitedCache = function() {
+    this.cache = {};
+};
+
+TimeLimitedCache.prototype.set = function(key, value, duration) {
+    const currentTime = Date.now();
+    const expirationTime = currentTime + duration;
+    if (this.cache[key] && this.cache[key].expirationTime > currentTime) {
+        this.cache[key] = { value, expirationTime };
+        return true;
+    } else {
+        this.cache[key] = { value, expirationTime };
+        return false;
+    }
+};
+
+TimeLimitedCache.prototype.get = function(key) {
+    const currentTime = Date.now();
+    if (this.cache[key] && this.cache[key].expirationTime > currentTime) {
+        return this.cache[key].value;
+    } else {
+        return -1;
+    }
+};
+
+TimeLimitedCache.prototype.count = function() {
+    const currentTime = Date.now();
+    let count = 0;
+    for (const key in this.cache) {
+        if (this.cache[key].expirationTime > currentTime) {
+            count++;
+        }
+    }
+    return count;
+};
