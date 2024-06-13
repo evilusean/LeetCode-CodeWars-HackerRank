@@ -67,37 +67,55 @@ First action is always "TimeLimitedCache" and must be executed immediately, with
  * timeLimitedCache.count() // 1
  */
 var TimeLimitedCache = function() {
+    // Initialize the cache as an empty object
     this.cache = {};
 };
 
 TimeLimitedCache.prototype.set = function(key, value, duration) {
+    // Get the current time in milliseconds
     const currentTime = Date.now();
+    // Calculate the expiration time by adding the duration to the current time
     const expirationTime = currentTime + duration;
+    // Check if the key already exists in the cache and its expiration time is greater than the current time
     if (this.cache[key] && this.cache[key].expirationTime > currentTime) {
+        // If the key exists and is not expired, update the value and expiration time
         this.cache[key] = { value, expirationTime };
+        // Return true to indicate that the key already existed
         return true;
     } else {
+        // If the key doesn't exist or is expired, add the new key-value pair to the cache
         this.cache[key] = { value, expirationTime };
+        // Return false to indicate that the key didn't exist
         return false;
     }
 };
 
 TimeLimitedCache.prototype.get = function(key) {
+    // Get the current time in milliseconds
     const currentTime = Date.now();
+    // Check if the key exists in the cache and its expiration time is greater than the current time
     if (this.cache[key] && this.cache[key].expirationTime > currentTime) {
+        // If the key exists and is not expired, return the associated value
         return this.cache[key].value;
     } else {
+        // If the key doesn't exist or is expired, return -1
         return -1;
     }
 };
 
 TimeLimitedCache.prototype.count = function() {
+    // Get the current time in milliseconds
     const currentTime = Date.now();
+    // Initialize a counter to keep track of the number of non-expired keys
     let count = 0;
+    // Iterate over each key in the cache
     for (const key in this.cache) {
+        // Check if the expiration time of the key is greater than the current time
         if (this.cache[key].expirationTime > currentTime) {
+            // If the key is not expired, increment the counter
             count++;
         }
     }
+    // Return the count of non-expired keys
     return count;
 };
