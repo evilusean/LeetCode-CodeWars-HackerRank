@@ -68,10 +68,15 @@ Constraints:
  * @return {Function}
  */
 var debounce = function(fn, t) {
+    // Initialize a variable to store the timeout ID
     let timeoutId = null;
+    // Return a new function that will be the debounced version of the original function
     return function(...args) {
+        // Clear any existing timeout
         clearTimeout(timeoutId);
+        // Set a new timeout that will execute the original function after t milliseconds
         timeoutId = setTimeout(() => {
+            // Call the original function with the provided arguments
             fn(...args);
         }, t);
     };
