@@ -45,7 +45,31 @@ functions is an array of functions that returns promises
  * @return {Promise<any>}
  */
 var promiseAll = function(functions) {
-    
+    return new Promise((resolve, reject) => {
+        let results = [];
+        let completedCount = 0;
+        let rejected = false;
+        
+        if (functions.length === 0) {
+            resolve(results);
+            return;
+        }
+        
+        functions.forEach((func, index) => {
+            func().then(result => {
+                results[index] = result;
+                completedCount++;
+                if (completedCount === functions.length) {
+                    resolve(results);
+                }
+            }).catch(error => {
+                if (!rejected) {
+                    rejected = true;
+                    reject(error);
+                }
+            });
+        });
+    });
 };
 
 /**
