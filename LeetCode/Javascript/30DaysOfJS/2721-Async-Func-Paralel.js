@@ -45,24 +45,35 @@ functions is an array of functions that returns promises
  * @return {Promise<any>}
  */
 var promiseAll = function(functions) {
+    // Create a new Promise that will represent the overall result of executing all functions in parallel.
     return new Promise((resolve, reject) => {
+        // Initialize an array to store the resolved values from each function.
         let results = [];
+        // Keep track of how many promises have successfully resolved.
         let completedCount = 0;
+        // Flag to indicate if any promise has been rejected.
         let rejected = false;
         
+        // If the input array of functions is empty, immediately resolve the promise with an empty results array.
         if (functions.length === 0) {
             resolve(results);
             return;
         }
         
+        // Iterate through each function in the input array.
         functions.forEach((func, index) => {
+            // Execute the function and get the promise it returns.
             func().then(result => {
+                // Store the resolved value in the results array at the corresponding index.
                 results[index] = result;
+                // Increment the completed count.
                 completedCount++;
+                // If all promises have resolved, resolve the main promise with the results array.
                 if (completedCount === functions.length) {
                     resolve(results);
                 }
             }).catch(error => {
+                // If a promise is rejected and the main promise hasn't been rejected yet, reject the main promise with the error.
                 if (!rejected) {
                     rejected = true;
                     reject(error);
