@@ -30,9 +30,14 @@ Can you solve it in O(1) time?
  * @return {boolean}
  */
 var isEmpty = function(obj) {
+    // Check if the input 'obj' is an array using Array.isArray()
     if (Array.isArray(obj)) {
+        // If 'obj' is an array, return true if its length is 0 (empty array), otherwise return false.
         return obj.length === 0;
     } else {
+        // If 'obj' is not an array, it's an object.
+        // Get the keys of the object using Object.keys() and check if the length of the keys array is 0.
+        // If the length is 0, it means the object has no key-value pairs and is empty, so return true. Otherwise, return false.
         return Object.keys(obj).length === 0;
     }
 };
