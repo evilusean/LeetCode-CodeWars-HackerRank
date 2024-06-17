@@ -36,9 +36,16 @@ arr is a valid JSON array
  * @return {Array}
  */
 var chunk = function(arr, size) {
+    // Initialize an empty array 'chunked' to store the resulting chunked subarrays.
     let chunked = [];
+    // Iterate through the input array 'arr' using a for loop.
+    // 'i' is the starting index for each chunk, and it increments by 'size' in each iteration.
     for (let i = 0; i < arr.length; i += size) {
+        // Use 'arr.slice(i, i + size)' to extract a subarray from 'arr' starting at index 'i' and ending at 'i + size'.
+        // This subarray represents a chunk of the original array.
+        // Push this extracted subarray into the 'chunked' array.
         chunked.push(arr.slice(i, i + size));
     }
+    // After iterating through all elements in 'arr', return the 'chunked' array containing the subarrays.
     return chunked;
 };
