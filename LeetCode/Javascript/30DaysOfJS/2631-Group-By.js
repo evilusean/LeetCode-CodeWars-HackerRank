@@ -70,15 +70,29 @@ fn returns a string
  * @param {Function} fn
  * @return {Object}
  */
+// This line defines a new method called 'groupBy' on the 'Array.prototype'. 
+//This means that any array in JavaScript will now have access to this 'groupBy' method.
+// The 'fn' parameter is a function that will be used to generate the keys for the grouped object.
 Array.prototype.groupBy = function(fn) {
+    // This line initializes an empty object called 'grouped'. This object will store the grouped elements.
     let grouped = {};
+    // This is a 'for' loop that iterates through the array ('this').
+    // 'i' is the loop counter, initialized to 0. It represents the index of the current element in the array.
+    // The loop continues as long as 'i' is less than the length of the array.
     for (let i = 0; i < this.length; i++) {
+        // This line calls the provided 'fn' function with the current element of the array ('this[i]').
+        // The result of 'fn(this[i])' is stored in the 'key' variable. This 'key' will be used to group the elements.
         let key = fn(this[i]);
+        // This line checks if the 'key' already exists as a property in the 'grouped' object.
+        // If the 'key' doesn't exist, it means this is the first time we're encountering this key.
         if (grouped[key] === undefined) {
+            // If the 'key' doesn't exist, this line creates a new empty array and assigns it to the 'key' property in the 'grouped' object. This array will hold all elements with this 'key'.
             grouped[key] = [];
         }
+        // This line adds the current element ('this[i]') to the array associated with the 'key' in the 'grouped' object.
         grouped[key].push(this[i]);
     }
+    // After the loop has finished iterating through all elements in the array, this line returns the 'grouped' object, which now contains the grouped elements.
     return grouped;
 };
 /**
