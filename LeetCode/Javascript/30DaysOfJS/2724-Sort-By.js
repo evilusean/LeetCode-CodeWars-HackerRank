@@ -29,5 +29,11 @@ fn is a function that returns a number
  * @return {Array}
  */
 var sortBy = function(arr, fn) {
+    // This line sorts the input array 'arr' using the provided function 'fn' to determine the sort order.
+    // The 'sort' method uses a comparison function to determine the order of elements.
+    // The comparison function takes two arguments, 'a' and 'b', representing elements from the array.
+    // It returns a negative number if 'a' should come before 'b', a positive number if 'a' should come after 'b', and 0 if they are equal.
+    // In this case, the comparison function calculates the difference between the results of applying 'fn' to 'a' and 'b'.
+    // This difference is used to determine the relative order of 'a' and 'b' in the sorted array.
     return arr.sort((a, b) => fn(a) - fn(b));
 };
