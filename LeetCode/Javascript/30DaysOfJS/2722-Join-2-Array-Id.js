@@ -70,17 +70,29 @@ Each object in arr1 and arr2 has a unique integer id key
  * @return {Array}
  */
 var join = function(arr1, arr2) {
+    // Create an empty object 'merged' to store the merged objects.
     let merged = {};
+    // Iterate through each object in the first array 'arr1'.
     for (let i = 0; i < arr1.length; i++) {
+        // Assign the current object from 'arr1' to the 'merged' object using its 'id' as the key.
         merged[arr1[i].id] = arr1[i];
     }
+    // Iterate through each object in the second array 'arr2'.
     for (let i = 0; i < arr2.length; i++) {
+        // Check if the current object's 'id' from 'arr2' already exists as a key in the 'merged' object.
         if (merged[arr2[i].id]) {
+            // If the 'id' exists, merge the current object from 'arr2' into the existing object in 'merged' using the spread syntax (...).
+            // This ensures that values from 'arr2' override values from 'arr1' if there are duplicate keys.
             merged[arr2[i].id] = {...merged[arr2[i].id], ...arr2[i]};
         } else {
+            // If the 'id' doesn't exist in 'merged', simply add the current object from 'arr2' to 'merged'.
             merged[arr2[i].id] = arr2[i];
         }
     }
-    let joinedArray = Object.values(merged).sort((a, b) => a.id - b.id);
+    // Convert the 'merged' object into an array of values using 'Object.values(merged)'.
+    let joinedArray = Object.values(merged);
+    // Sort the 'joinedArray' in ascending order based on the 'id' property using the 'sort' method and a comparison function.
+    joinedArray.sort((a, b) => a.id - b.id);
+    // Return the sorted 'joinedArray'.
     return joinedArray;
 };
