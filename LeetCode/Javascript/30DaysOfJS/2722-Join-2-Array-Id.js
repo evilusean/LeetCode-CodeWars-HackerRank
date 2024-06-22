@@ -70,5 +70,17 @@ Each object in arr1 and arr2 has a unique integer id key
  * @return {Array}
  */
 var join = function(arr1, arr2) {
-    
+    let merged = {};
+    for (let i = 0; i < arr1.length; i++) {
+        merged[arr1[i].id] = arr1[i];
+    }
+    for (let i = 0; i < arr2.length; i++) {
+        if (merged[arr2[i].id]) {
+            merged[arr2[i].id] = {...merged[arr2[i].id], ...arr2[i]};
+        } else {
+            merged[arr2[i].id] = arr2[i];
+        }
+    }
+    let joinedArray = Object.values(merged).sort((a, b) => a.id - b.id);
+    return joinedArray;
 };
