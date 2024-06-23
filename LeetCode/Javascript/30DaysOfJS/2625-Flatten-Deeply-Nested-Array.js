@@ -66,3 +66,20 @@ var flat = function (arr, n) {
     // After processing all elements in the input array, return the 'flattened' array, which now contains the flattened version of the original array.
     return flattened;
 };
+
+/* ABOVE CODE DIDN'T PASS TEST, USED BELOW TO PASS LEETCODE
+function flat(arr, n) {
+  const result = []; // Store the flattened elements
+
+  for (let item of arr) {
+    if (Array.isArray(item) && n > 0) {
+      // If the element is an array and we haven't reached max depth...
+      result.push(...flat(item, n - 1)); // Recursively flatten it
+    } else {
+      result.push(item); // Otherwise, just add the element directly
+    }
+  }
+
+  return result;
+}
+  */
