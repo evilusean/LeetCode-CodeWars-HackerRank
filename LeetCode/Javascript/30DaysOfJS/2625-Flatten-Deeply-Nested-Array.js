@@ -48,13 +48,21 @@ maxDepth <= 1000
  * @return {Array}
  */
 var flat = function (arr, n) {
+    // Initialize an empty array called 'flattened' to store the flattened elements.
     let flattened = [];
+    // Iterate through each element in the input array 'arr'.
     for (let i = 0; i < arr.length; i++) {
+        // Check if the current element 'arr[i]' is an array using 'Array.isArray(arr[i])' and if the remaining depth 'n' is greater than 0.
         if (Array.isArray(arr[i]) && n > 0) {
+            // If both conditions are true, it means we need to flatten this subarray further.
+            // Recursively call the 'flat' function with the current subarray 'arr[i]' and a reduced depth 'n - 1'.
+            // The result of this recursive call (which is a flattened version of the subarray) is then concatenated to the 'flattened' array using 'concat'.
             flattened = flattened.concat(flat(arr[i], n - 1));
         } else {
+            // If the current element is not an array or if the remaining depth 'n' is 0, simply push the current element 'arr[i]' to the 'flattened' array.
             flattened.push(arr[i]);
         }
     }
+    // After processing all elements in the input array, return the 'flattened' array, which now contains the flattened version of the original array.
     return flattened;
 };
