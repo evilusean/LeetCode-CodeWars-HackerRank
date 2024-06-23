@@ -42,3 +42,11 @@ maxDepth <= 1000
 -1000 <= each number <= 1000
 0 <= n <= 1000
 */
+/**
+ * @param {Array} arr
+ * @param {number} depth
+ * @return {Array}
+ */
+var flat = function (arr, n) {
+    
+};
