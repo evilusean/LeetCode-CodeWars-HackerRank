@@ -48,5 +48,13 @@ maxDepth <= 1000
  * @return {Array}
  */
 var flat = function (arr, n) {
-    
+    let flattened = [];
+    for (let i = 0; i < arr.length; i++) {
+        if (Array.isArray(arr[i]) && n > 0) {
+            flattened = flattened.concat(flat(arr[i], n - 1));
+        } else {
+            flattened.push(arr[i]);
+        }
+    }
+    return flattened;
 };
