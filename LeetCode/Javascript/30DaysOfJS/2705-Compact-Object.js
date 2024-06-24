@@ -29,20 +29,27 @@ obj is a valid JSON object
  * @return {Object|Array}
  */
 var compactObject = function (obj) {
+    // If the input is null or not an object, return it as is.
     if (obj === null || typeof obj !== 'object') {
         return obj;
     }
 
+    // If the input is an array, filter out falsy values and recursively compact each element.
     if (Array.isArray(obj)) {
         return obj.filter(Boolean).map(compactObject);
     }
 
+    // If the input is an object, create a new object to store the results.
     const result = {};
+    // Iterate over each key in the object.
     for (const key in obj) {
+        // Recursively compact the value associated with the key.
         const value = compactObject(obj[key]);
+        // If the compacted value is truthy, add it to the result object.
         if (Boolean(value)) {
             result[key] = value;
         }
     }
+    // Return the resulting object.
     return result;
 };
