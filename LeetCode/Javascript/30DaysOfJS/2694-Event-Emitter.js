@@ -75,47 +75,62 @@ The unsubscribe action takes one argument, which is the 0-indexed order of the s
 
 
 class EventEmitter {
+    // Constructor for the EventEmitter class.
     constructor() {
+        // Initialize an empty object to store event listeners.
         this.events = {};
     }
     
     /**
-     * @param {string} eventName
-     * @param {Function} callback
-     * @return {Object}
+     * @param {string} eventName - The name of the event to subscribe to.
+     * @param {Function} callback - The callback function to be executed when the event is emitted.
+     * @return {Object} - An object containing an unsubscribe method.
      */
     subscribe(eventName, callback) {
+        // If the event name doesn't exist in the events object, create an empty array for it.
         if (!this.events[eventName]) {
             this.events[eventName] = [];
         }
+        // Add the callback function to the array of listeners for the given event.
         this.events[eventName].push(callback);
+        // Return an object with an unsubscribe method.
         return {
+            // The unsubscribe method removes the callback from the list of listeners.
             unsubscribe: () => {
+                // Find the index of the callback in the array of listeners.
                 const index = this.events[eventName].indexOf(callback);
+                // If the callback is found, remove it from the array.
                 if (index !== -1) {
                     this.events[eventName].splice(index, 1);
                 }
+                // Return undefined to indicate that the unsubscribe operation was successful.
                 return undefined;
             }
         };
     }
     
     /**
-     * @param {string} eventName
-     * @param {Array} args
-     * @return {Array}
+     * @param {string} eventName - The name of the event to emit.
+     * @param {Array} args - An optional array of arguments to pass to the callback functions.
+     * @return {Array} - An array of the results of all callback calls in the order they were subscribed.
      */
     emit(eventName, args = []) {
+        // If the event name doesn't exist in the events object, return an empty array.
         if (!this.events[eventName]) {
             return [];
         }
+        // Create an empty array to store the results of the callback calls.
         const results = [];
+        // Iterate over each callback function in the array of listeners for the given event.
         for (const callback of this.events[eventName]) {
+            // Call the callback function with the provided arguments.
             results.push(callback(...args));
         }
+        // Return the array of results.
         return results;
     }
 }
+
 
 
 /**
