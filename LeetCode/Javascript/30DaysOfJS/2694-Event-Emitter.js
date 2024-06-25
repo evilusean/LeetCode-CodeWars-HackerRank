@@ -61,7 +61,6 @@ const sub1 = emitter.subscribe("firstEvent", x => x + 1);
 const sub2 = emitter.subscribe("firstEvent", x => x + 2);
 sub1.unsubscribe(); // undefined
 emitter.emit("firstEvent", [5]); // [7]
- 
 
 Constraints:
 1 <= actions.length <= 10
@@ -74,7 +73,11 @@ The subscribe action takes 2 arguments, where the first one is the event name an
 The unsubscribe action takes one argument, which is the 0-indexed order of the subscription made before.
 */
 
+
 class EventEmitter {
+    constructor() {
+        this.events = {};
+    }
     
     /**
      * @param {string} eventName
@@ -82,10 +85,17 @@ class EventEmitter {
      * @return {Object}
      */
     subscribe(eventName, callback) {
-        
+        if (!this.events[eventName]) {
+            this.events[eventName] = [];
+        }
+        this.events[eventName].push(callback);
         return {
             unsubscribe: () => {
-                
+                const index = this.events[eventName].indexOf(callback);
+                if (index !== -1) {
+                    this.events[eventName].splice(index, 1);
+                }
+                return undefined;
             }
         };
     }
@@ -96,9 +106,17 @@ class EventEmitter {
      * @return {Array}
      */
     emit(eventName, args = []) {
-        
+        if (!this.events[eventName]) {
+            return [];
+        }
+        const results = [];
+        for (const callback of this.events[eventName]) {
+            results.push(callback(...args));
+        }
+        return results;
     }
 }
+
 
 /**
  * const emitter = new EventEmitter();
