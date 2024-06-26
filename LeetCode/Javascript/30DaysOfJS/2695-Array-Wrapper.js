@@ -36,22 +36,28 @@ Note: nums is the array passed to the constructor
  * @return {void}
  */
 var ArrayWrapper = function(nums) {
+    // Store the input array in the 'nums' property of the object.
     this.nums = nums;
 };
 
 /**
- * @return {number}
+ * @return {number} - The sum of all elements in the array.
  */
 ArrayWrapper.prototype.valueOf = function() {
+    // Use the 'reduce' method to sum all elements in the 'nums' array.
+    // The initial value of 'sum' is 0.
     return this.nums.reduce((sum, num) => sum + num, 0);
 }
 
 /**
- * @return {string}
+ * @return {string} - A string representation of the array in the format "[element1,element2,...]".
  */
 ArrayWrapper.prototype.toString = function() {
+    // Use template literals to create a string representation of the array.
+    // Join the elements of the 'nums' array with commas.
     return `[${this.nums.join(',')}]`;
 }
+
 
 
 /**
