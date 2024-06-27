@@ -52,62 +52,62 @@ class Calculator {
     /** 
      * @param {number} value
      */
-    constructor(value) {
-        this.result = value;
+    constructor(value) { // Defines the constructor of the Calculator class
+        this.result = value; // Initializes the result property of the Calculator object with the given value
     }
     
     /** 
      * @param {number} value
      * @return {Calculator}
      */
-    add(value){
-        this.result += value;
-        return this;
+    add(value){ // Defines the add method
+        this.result += value; // Adds the given value to the result property
+        return this; // Returns the updated Calculator object, enabling method chaining
     }
     
     /** 
      * @param {number} value
      * @return {Calculator}
      */
-    subtract(value){
-        this.result -= value;
-        return this;
+    subtract(value){ // Defines the subtract method
+        this.result -= value; // Subtracts the given value from the result property
+        return this; // Returns the updated Calculator object, enabling method chaining
     }
     
     /** 
      * @param {number} value
      * @return {Calculator}
      */  
-    multiply(value) {
-        this.result *= value;
-        return this;
+    multiply(value) { // Defines the multiply method
+        this.result *= value; // Multiplies the result property by the given value
+        return this; // Returns the updated Calculator object, enabling method chaining
     }
     
     /** 
      * @param {number} value
      * @return {Calculator}
      */
-    divide(value) {
-        if (value === 0) {
-            throw new Error("Division by zero is not allowed");
+    divide(value) { // Defines the divide method
+        if (value === 0) { // Checks if the given value is 0
+            throw new Error("Division by zero is not allowed"); // Throws an error if the value is 0
         }
-        this.result /= value;
-        return this;
+        this.result /= value; // Divides the result property by the given value
+        return this; // Returns the updated Calculator object, enabling method chaining
     }
     
     /** 
      * @param {number} value
      * @return {Calculator}
      */
-    power(value) {
-        this.result = Math.pow(this.result, value);
-        return this;
+    power(value) { // Defines the power method
+        this.result = Math.pow(this.result, value); // Raises the result property to the power of the given value
+        return this; // Returns the updated Calculator object, enabling method chaining
     }
     
     /** 
      * @return {number}
      */
-    getResult() {
-        return this.result;
+    getResult() { // Defines the getResult method
+        return this.result; // Returns the current value of the result property
     }
 }
