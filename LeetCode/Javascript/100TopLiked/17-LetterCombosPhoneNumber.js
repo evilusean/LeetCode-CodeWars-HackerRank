@@ -1,6 +1,7 @@
-class Solution {
-    public:
-        vector<string> letterCombinations(string digits) {
-            
-        }
-    };
+/**
+ * @param {string} digits
+ * @return {string[]}
+ */
+var letterCombinations = function(digits) {
+    
+};
