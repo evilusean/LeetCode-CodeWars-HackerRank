@@ -37,25 +37,38 @@ All elements of candidates are distinct.
  * @return {number[][]}
  */
 var combinationSum = function(candidates, target) {
+    // Initialize an empty array to store the resulting combinations
     let result = [];
+    // Sort the candidates array in ascending order to optimize the backtracking process
     candidates.sort((a, b) => a - b);
     
+    // Define a recursive backtracking function
     const backtrack = (combination, remaining, start) => {
+        // Base case: If the remaining target value is 0, we have found a valid combination
         if (remaining === 0) {
+            // Add a copy of the current combination to the result array
             result.push([...combination]);
+            // Return from the recursive call
             return;
         }
+        // Base case: If the remaining target value is negative, we have exceeded the target, so we return
         if (remaining < 0) {
             return;
         }
         
+        // Iterate through the candidates array starting from the given start index
         for (let i = start; i < candidates.length; i++) {
+            // Add the current candidate to the combination array
             combination.push(candidates[i]);
+            // Recursively call the backtrack function with the updated combination, remaining target value, and current index
             backtrack(combination, remaining - candidates[i], i);
+            // Remove the last candidate from the combination array to backtrack to the previous state
             combination.pop();
         }
     };
     
+    // Initiate the backtracking process with an empty combination, the target value, and starting index 0
     backtrack([], target, 0);
+    // Return the array of all unique combinations
     return result;
 };
