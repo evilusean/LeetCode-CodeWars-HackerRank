@@ -23,5 +23,23 @@ All the integers of nums are unique.
  * @return {number[][]}
  */
 var permute = function(nums) {
+    let result = [];
     
+    const backtrack = (index, currentPermutation) => {
+        if (index === nums.length) {
+            result.push([...currentPermutation]);
+            return;
+        }
+        
+        for (let i = 0; i < nums.length; i++) {
+            if (!currentPermutation.includes(nums[i])) {
+                currentPermutation.push(nums[i]);
+                backtrack(index + 1, currentPermutation);
+                currentPermutation.pop();
+            }
+        }
+    };
+    
+    backtrack(0, []);
+    return result;
 };
