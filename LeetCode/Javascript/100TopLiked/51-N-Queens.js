@@ -23,5 +23,46 @@ Constraints:
  * @return {string[][]}
  */
 var solveNQueens = function(n) {
+    let result = [];
+    let board = Array(n).fill(0).map(() => Array(n).fill('.'));
     
+    function isSafe(row, col) {
+        // Check the same column
+        for (let i = 0; i < row; i++) {
+            if (board[i][col] === 'Q') {
+                return false;
+            }
+        }
+        // Check upper diagonal
+        for (let i = row, j = col; i >= 0 && j >= 0; i--, j--) {
+            if (board[i][j] === 'Q') {
+                return false;
+            }
+        }
+        // Check lower diagonal
+        for (let i = row, j = col; i >= 0 && j < n; i--, j++) {
+            if (board[i][j] === 'Q') {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    function solve(row) {
+        if (row === n) {
+            let temp = board.map(row => row.join(''));
+            result.push(temp);
+            return;
+        }
+        for (let col = 0; col < n; col++) {
+            if (isSafe(row, col)) {
+                board[row][col] = 'Q';
+                solve(row + 1);
+                board[row][col] = '.'; // Backtrack
+            }
+        }
+    }
+    
+    solve(0);
+    return result;
 };
