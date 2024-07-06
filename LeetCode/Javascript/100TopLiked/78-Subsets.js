@@ -23,12 +23,12 @@ All the numbers of nums are unique.
  * @return {number[][]}
  */
 var subsets = function(nums) {
-    let result = [[]];
-    for (let i = 0; i < nums.length; i++) {
-        let len = result.length;
-        for (let j = 0; j < len; j++) {
-            result.push([...result[j], nums[i]]);
+    let result = [[]]; // Initialize an array 'result' to store all subsets. Start with an empty subset.
+    for (let i = 0; i < nums.length; i++) { // Iterate through each element in the input array 'nums'.
+        let len = result.length; // Get the current length of the 'result' array.
+        for (let j = 0; j < len; j++) { // Iterate through each existing subset in 'result'.
+            result.push([...result[j], nums[i]]); // Create a new subset by adding the current element 'nums[i]' to each existing subset in 'result' and push it to the 'result' array.
         }
     }
-    return result;
+    return result; // Return the 'result' array containing all possible subsets.
 };
