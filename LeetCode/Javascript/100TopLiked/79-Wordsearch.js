@@ -31,38 +31,46 @@ Follow up: Could you use search pruning to make your solution faster with a larg
  * @return {boolean}
  */
 var exist = function(board, word) {
+    // Get the number of rows and columns in the board
     const rows = board.length;
     const cols = board[0].length;
     
+    // Define a recursive function to perform Depth-First Search (DFS)
     const dfs = (row, col, index) => {
+        // Base case: If we've reached the end of the word, we've found it
         if (index === word.length) {
             return true;
         }
+        // Check if the current cell is out of bounds or if the character doesn't match the current letter in the word
         if (row < 0 || row >= rows || col < 0 || col >= cols || board[row][col] !== word[index]) {
             return false;
         }
         
-        // Mark the current cell as visited
+        // Mark the current cell as visited by changing its character to '#'
         board[row][col] = '#';
         
-        // Explore all four directions
-        const found = dfs(row + 1, col, index + 1) ||
-                     dfs(row - 1, col, index + 1) ||
-                     dfs(row, col + 1, index + 1) ||
-                     dfs(row, col - 1, index + 1);
+        // Explore all four directions (up, down, left, right) recursively
+        const found = dfs(row + 1, col, index + 1) || // Down
+                     dfs(row - 1, col, index + 1) || // Up
+                     dfs(row, col + 1, index + 1) || // Right
+                     dfs(row, col - 1, index + 1); // Left
         
-        // Backtrack: Unmark the current cell as visited
+        // Backtrack: Restore the original character at the current cell to allow for other paths
         board[row][col] = word[index];
         
+        // Return true if any of the recursive calls found the word, otherwise return false
         return found;
     };
     
+    // Iterate through each cell in the board
     for (let i = 0; i < rows; i++) {
         for (let j = 0; j < cols; j++) {
+            // If the current cell's character matches the first character of the word, start the DFS from that cell
             if (board[i][j] === word[0] && dfs(i, j, 0)) {
                 return true;
             }
         }
     }
+    // If the loop completes without finding the word, return false
     return false;
 };
