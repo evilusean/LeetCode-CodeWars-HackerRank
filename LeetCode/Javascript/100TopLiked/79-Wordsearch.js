@@ -31,5 +31,38 @@ Follow up: Could you use search pruning to make your solution faster with a larg
  * @return {boolean}
  */
 var exist = function(board, word) {
+    const rows = board.length;
+    const cols = board[0].length;
     
+    const dfs = (row, col, index) => {
+        if (index === word.length) {
+            return true;
+        }
+        if (row < 0 || row >= rows || col < 0 || col >= cols || board[row][col] !== word[index]) {
+            return false;
+        }
+        
+        // Mark the current cell as visited
+        board[row][col] = '#';
+        
+        // Explore all four directions
+        const found = dfs(row + 1, col, index + 1) ||
+                     dfs(row - 1, col, index + 1) ||
+                     dfs(row, col + 1, index + 1) ||
+                     dfs(row, col - 1, index + 1);
+        
+        // Backtrack: Unmark the current cell as visited
+        board[row][col] = word[index];
+        
+        return found;
+    };
+    
+    for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+            if (board[i][j] === word[0] && dfs(i, j, 0)) {
+                return true;
+            }
+        }
+    }
+    return false;
 };
