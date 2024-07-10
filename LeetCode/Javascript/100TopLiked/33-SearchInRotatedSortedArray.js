@@ -32,27 +32,27 @@ nums is an ascending array that is possibly rotated.
  * @return {number}
  */
 var search = function(nums, target) {
-    let left = 0;
-    let right = nums.length - 1;
-    while (left <= right) {
-        let mid = Math.floor((left + right) / 2);
-        if (nums[mid] === target) {
+    let left = 0; // Initialize the left pointer to the beginning of the array
+    let right = nums.length - 1; // Initialize the right pointer to the end of the array
+    while (left <= right) { // Continue the search as long as the left pointer is less than or equal to the right pointer
+        let mid = Math.floor((left + right) / 2); // Calculate the middle index
+        if (nums[mid] === target) { // If the target is found at the middle index, return the index
             return mid;
         }
         // If the left half is sorted
-        if (nums[left] <= nums[mid]) {
-            if (nums[left] <= target && target < nums[mid]) {
+        if (nums[left] <= nums[mid]) { 
+            if (nums[left] <= target && target < nums[mid]) { // If the target is within the sorted left half, update the right pointer
                 right = mid - 1;
-            } else {
+            } else { // Otherwise, update the left pointer
                 left = mid + 1;
             }
         } else { // If the right half is sorted
-            if (nums[mid] < target && target <= nums[right]) {
+            if (nums[mid] < target && target <= nums[right]) { // If the target is within the sorted right half, update the left pointer
                 left = mid + 1;
-            } else {
+            } else { // Otherwise, update the right pointer
                 right = mid - 1;
             }
         }
     }
-    return -1;
+    return -1; // If the target is not found, return -1
 };
