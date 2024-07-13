@@ -27,18 +27,29 @@ nums contains distinct values sorted in ascending order.
  * @return {number}
  */
 var searchInsert = function(nums, target) {
+    // Initialize the left and right pointers for binary search.
     let left = 0;
     let right = nums.length - 1;
     
+    // Perform binary search until the left pointer is greater than the right pointer.
     while (left <= right) {
+        // Calculate the middle index.
         let mid = Math.floor((left + right) / 2);
+        // If the middle element is equal to the target, return the middle index.
         if (nums[mid] === target) {
             return mid;
-        } else if (nums[mid] < target) {
+        } 
+        // If the middle element is less than the target, the target must be in the right half of the array.
+        else if (nums[mid] < target) {
+            // Update the left pointer to the middle index plus 1.
             left = mid + 1;
-        } else {
+        } 
+        // If the middle element is greater than the target, the target must be in the left half of the array.
+        else {
+            // Update the right pointer to the middle index minus 1.
             right = mid - 1;
         }
     }
+    // If the loop completes without finding the target, the left pointer will point to the index where the target should be inserted.
     return left;
 };
