@@ -25,24 +25,34 @@ n == matrix[i].length
  * @return {boolean}
  */
 var searchMatrix = function(matrix, target) {
+    // If the matrix is empty or has no rows or columns, return false
     if (matrix.length === 0 || matrix[0].length === 0) {
         return false;
     }
+    // Get the number of rows and columns in the matrix
     let m = matrix.length;
     let n = matrix[0].length;
+    // Initialize the left and right pointers for binary search
     let left = 0;
     let right = m * n - 1;
+    // Perform binary search on the flattened matrix
     while (left <= right) {
+        // Calculate the middle index
         let mid = Math.floor((left + right) / 2);
+        // Calculate the row and column corresponding to the middle index
         let row = Math.floor(mid / n);
         let col = mid % n;
+        // If the target is found at the middle index, return true
         if (matrix[row][col] === target) {
             return true;
         } else if (matrix[row][col] < target) {
+            // If the target is greater than the middle element, search in the right half
             left = mid + 1;
         } else {
+            // If the target is less than the middle element, search in the left half
             right = mid - 1;
         }
     }
+    // If the target is not found, return false
     return false;
 };
