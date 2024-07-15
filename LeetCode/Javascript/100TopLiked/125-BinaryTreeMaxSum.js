@@ -31,5 +31,18 @@ The number of nodes in the tree is in the range [1, 3 * 104].
  * @return {number}
  */
 var maxPathSum = function(root) {
+    let maxSum = Number.MIN_SAFE_INTEGER;
     
+    const dfs = (node) => {
+        if (!node) {
+            return 0;
+        }
+        let leftSum = Math.max(0, dfs(node.left));
+        let rightSum = Math.max(0, dfs(node.right));
+        maxSum = Math.max(maxSum, leftSum + rightSum + node.val);
+        return Math.max(leftSum, rightSum) + node.val;
+    };
+    
+    dfs(root);
+    return maxSum;
 };
