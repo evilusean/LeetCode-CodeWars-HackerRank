@@ -31,18 +31,26 @@ The number of nodes in the tree is in the range [1, 3 * 104].
  * @return {number}
  */
 var maxPathSum = function(root) {
+    // Initialize maxSum to the smallest possible integer value
     let maxSum = Number.MIN_SAFE_INTEGER;
     
+    // Define a recursive function dfs to traverse the tree and calculate the maximum path sum
     const dfs = (node) => {
+        // If the current node is null, return 0
         if (!node) {
             return 0;
         }
+        // Recursively calculate the maximum path sum from the left and right subtrees
         let leftSum = Math.max(0, dfs(node.left));
         let rightSum = Math.max(0, dfs(node.right));
+        // Update maxSum with the maximum path sum found so far, including the current node
         maxSum = Math.max(maxSum, leftSum + rightSum + node.val);
+        // Return the maximum path sum that includes the current node and either its left or right subtree
         return Math.max(leftSum, rightSum) + node.val;
     };
     
+    // Start the depth-first search from the root node
     dfs(root);
+    // Return the maximum path sum found
     return maxSum;
 };
