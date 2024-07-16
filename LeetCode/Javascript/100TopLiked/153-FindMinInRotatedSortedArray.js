@@ -34,15 +34,25 @@ nums is sorted and rotated between 1 and n times.
  * @return {number}
  */
 var findMin = function(nums) {
+    // Initialize left and right pointers to the beginning and end of the array
     let left = 0;
     let right = nums.length - 1;
+    // Perform binary search until left pointer is less than right pointer
     while (left < right) {
+        // Calculate the middle index
         let mid = Math.floor((left + right) / 2);
+        // If the middle element is greater than the rightmost element,
+        // the minimum element lies in the right half of the array (including mid)
         if (nums[mid] > nums[right]) {
+            // Update left pointer to mid + 1
             left = mid + 1;
         } else {
+            // Otherwise, the minimum element lies in the left half of the array (including mid)
+            // Update right pointer to mid
             right = mid;
         }
     }
+    // When the loop terminates, left and right will point to the same index, which is the index of the minimum element
+    // Return the element at the left index
     return nums[left];
 };
