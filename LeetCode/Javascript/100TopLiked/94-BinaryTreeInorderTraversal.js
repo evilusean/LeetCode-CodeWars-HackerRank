@@ -31,5 +31,17 @@ Follow up: Recursive solution is trivial, could you do it iteratively?
  * @return {number[]}
  */
 var inorderTraversal = function(root) {
-    
+    let result = [];
+    let stack = [];
+    let current = root;
+    while (current !== null || stack.length > 0) {
+        while (current !== null) {
+            stack.push(current);
+            current = current.left;
+        }
+        current = stack.pop();
+        result.push(current.val);
+        current = current.right;
+    }
+    return result;
 };
