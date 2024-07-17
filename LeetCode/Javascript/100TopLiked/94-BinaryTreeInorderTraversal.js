@@ -31,17 +31,26 @@ Follow up: Recursive solution is trivial, could you do it iteratively?
  * @return {number[]}
  */
 var inorderTraversal = function(root) {
+    // Initialize an empty array to store the inorder traversal result
     let result = [];
+    // Initialize an empty stack to store nodes during traversal
     let stack = [];
+    // Initialize the current node to the root of the tree
     let current = root;
+    // Iterate until the current node is null and the stack is empty
     while (current !== null || stack.length > 0) {
+        // While the current node is not null, push it onto the stack and move to its left child
         while (current !== null) {
             stack.push(current);
             current = current.left;
         }
+        // Pop the top node from the stack, this is the current node
         current = stack.pop();
+        // Add the value of the current node to the result array
         result.push(current.val);
+        // Move to the right child of the current node
         current = current.right;
     }
+    // Return the inorder traversal result
     return result;
 };
