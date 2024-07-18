@@ -34,18 +34,27 @@ The number of nodes in the tree is in the range [1, 104].
  * @return {boolean}
  */
 var isValidBST = function(root) {
+    // Call the helper function to recursively check if the tree is a valid BST
     return isValidBSTHelper(root, null, null);
 };
 
+// Recursive helper function to validate the BST
 function isValidBSTHelper(node, min, max) {
+    // Base case: If the current node is null (empty subtree), it's valid
     if (node === null) {
         return true;
     }
+    // Check if the current node's value violates the left subtree constraint
     if (min !== null && node.val <= min) {
         return false;
     }
+    // Check if the current node's value violates the right subtree constraint
     if (max !== null && node.val >= max) {
         return false;
     }
-    return isValidBSTHelper(node.left, min, node.val) && isValidBSTHelper(node.right, node.val, max);
+    // Recursively check the left subtree with the current node's value as the new maximum
+    // and the original minimum
+    return isValidBSTHelper(node.left, min, node.val) && 
+    // Recursively check the right subtree with the original minimum and the current node's value as the new minimum
+    isValidBSTHelper(node.right, node.val, max);
 }
