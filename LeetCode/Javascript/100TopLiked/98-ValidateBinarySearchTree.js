@@ -34,5 +34,18 @@ The number of nodes in the tree is in the range [1, 104].
  * @return {boolean}
  */
 var isValidBST = function(root) {
-    
+    return isValidBSTHelper(root, null, null);
 };
+
+function isValidBSTHelper(node, min, max) {
+    if (node === null) {
+        return true;
+    }
+    if (min !== null && node.val <= min) {
+        return false;
+    }
+    if (max !== null && node.val >= max) {
+        return false;
+    }
+    return isValidBSTHelper(node.left, min, node.val) && isValidBSTHelper(node.right, node.val, max);
+}
