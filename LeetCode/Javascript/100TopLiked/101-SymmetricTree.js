@@ -29,5 +29,28 @@ Follow up: Could you solve it both recursively and iteratively?
  * @return {boolean}
  */
 var isSymmetric = function(root) {
-    
+    // If the root is null, the tree is symmetric
+    if (root === null) {
+        return true;
+    }
+    // Define a recursive helper function to check if two subtrees are symmetric
+    const isSymmetricHelper = (left, right) => {
+        // If both subtrees are null, they are symmetric
+        if (left === null && right === null) {
+            return true;
+        }
+        // If one subtree is null and the other is not, they are not symmetric
+        if (left === null || right === null) {
+            return false;
+        }
+        // If the values of the two nodes are different, they are not symmetric
+        if (left.val !== right.val) {
+            return false;
+        }
+        // Recursively check if the left subtree of the left node is symmetric to the right subtree of the right node
+        // and if the right subtree of the left node is symmetric to the left subtree of the right node
+        return isSymmetricHelper(left.left, right.right) && isSymmetricHelper(left.right, right.left);
+    };
+    // Call the helper function to check if the left and right subtrees of the root are symmetric
+    return isSymmetricHelper(root.left, root.right);
 };
