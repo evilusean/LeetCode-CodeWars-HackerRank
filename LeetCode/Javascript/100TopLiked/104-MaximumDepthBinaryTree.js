@@ -28,5 +28,13 @@ The number of nodes in the tree is in the range [0, 104].
  * @return {number}
  */
 var maxDepth = function(root) {
-    
+    // If the root is null, the tree is empty, so the depth is 0
+    if (root === null) {
+        return 0;
+    }
+    // Recursively calculate the maximum depth of the left and right subtrees
+    let leftDepth = maxDepth(root.left);
+    let rightDepth = maxDepth(root.right);
+    // Return the maximum depth of the two subtrees plus 1 (for the current node)
+    return Math.max(leftDepth, rightDepth) + 1;
 };
