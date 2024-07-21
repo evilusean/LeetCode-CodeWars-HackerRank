@@ -33,8 +33,8 @@ var maxDepth = function(root) {
         return 0;
     }
     // Recursively calculate the maximum depth of the left and right subtrees
-    let leftDepth = maxDepth(root.left);
-    let rightDepth = maxDepth(root.right);
+    let leftDepth = maxDepth(root.left); // Call maxDepth recursively on the left subtree
+    let rightDepth = maxDepth(root.right); // Call maxDepth recursively on the right subtree
     // Return the maximum depth of the two subtrees plus 1 (for the current node)
-    return Math.max(leftDepth, rightDepth) + 1;
+    return Math.max(leftDepth, rightDepth) + 1; // Return the maximum depth between the left and right subtrees, plus 1 to account for the current node.
 };
