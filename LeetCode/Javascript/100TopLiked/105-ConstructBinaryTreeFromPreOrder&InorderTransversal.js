@@ -34,5 +34,40 @@ inorder is guaranteed to be the inorder traversal of the tree.
  * @return {TreeNode}
  */
 var buildTree = function(preorder, inorder) {
+    // If either preorder or inorder is empty, return null (empty tree)
+    if (preorder.length === 0 || inorder.length === 0) {
+        return null;
+    }
     
+    // Create a map to store the index of each value in the inorder array
+    const inorderMap = new Map();
+    for (let i = 0; i < inorder.length; i++) {
+        inorderMap.set(inorder[i], i);
+    }
+    
+    // Define a recursive helper function to build the tree
+    const build = (preorderStart, preorderEnd, inorderStart, inorderEnd) => {
+        // Base case: If the preorder start index is greater than the preorder end index, return null (empty subtree)
+        if (preorderStart > preorderEnd) {
+            return null;
+        }
+        
+        // The first element in the preorder array is the root of the current subtree
+        const rootVal = preorder[preorderStart];
+        const root = new TreeNode(rootVal);
+        
+        // Find the index of the root value in the inorder array
+        const rootIndex = inorderMap.get(rootVal);
+        
+        // Recursively build the left subtree
+        root.left = build(preorderStart + 1, preorderStart + (rootIndex - inorderStart), inorderStart, rootIndex - 1);
+        // Recursively build the right subtree
+        root.right = build(preorderStart + (rootIndex - inorderStart) + 1, preorderEnd, rootIndex + 1, inorderEnd);
+        
+        // Return the constructed root node
+        return root;
+    };
+    
+    // Call the helper function to build the entire tree
+    return build(0, preorder.length - 1, 0, inorder.length - 1);
 };
