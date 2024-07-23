@@ -31,15 +31,21 @@ nums is sorted in a strictly increasing order.
  * @return {TreeNode}
  */
 var sortedArrayToBST = function(nums) {
+    // If the input array nums is empty, return null as there's no tree to construct.
     if (nums.length === 0) {
         return null;
     }
     
+    // Calculate the middle index mid of the array. This will be the root node of the BST.
     const mid = Math.floor(nums.length / 2);
+    // Create a new TreeNode with the value at the middle index (nums[mid]).
     const root = new TreeNode(nums[mid]);
     
+    // Recursively call sortedArrayToBST with the left half of the array (nums.slice(0, mid)) to construct the left subtree.
     root.left = sortedArrayToBST(nums.slice(0, mid));
+    // Recursively call sortedArrayToBST with the right half of the array (nums.slice(mid + 1)) to construct the right subtree.
     root.right = sortedArrayToBST(nums.slice(mid + 1));
     
+    // Return the constructed root node.
     return root;
 };
