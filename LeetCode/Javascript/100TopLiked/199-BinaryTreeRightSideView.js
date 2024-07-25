@@ -32,5 +32,35 @@ The number of nodes in the tree is in the range [0, 100].
  * @return {number[]}
  */
 var rightSideView = function(root) {
-    
+    // If the tree is empty, return an empty array
+    if (root === null) {
+        return [];
+    }
+    // Initialize an empty array to store the right side view
+    let rightView = [];
+    // Initialize a queue to store nodes during level-order traversal
+    let queue = [root];
+    // Iterate through each level of the tree
+    while (queue.length > 0) {
+        // Get the size of the current level (number of nodes to process)
+        let levelSize = queue.length;
+        // Iterate through each node at the current level
+        for (let i = 0; i < levelSize; i++) {
+            // Dequeue the first node from the queue, this is the current node
+            let current = queue.shift();
+            // If this is the last node at the current level, add its value to the right side view
+            if (i === levelSize - 1) {
+                rightView.push(current.val);
+            }
+            // Enqueue the left and right children of the current node if they exist
+            if (current.left !== null) {
+                queue.push(current.left);
+            }
+            if (current.right !== null) {
+                queue.push(current.right);
+            }
+        }
+    }
+    // Return the right side view of the tree
+    return rightView;
 };
