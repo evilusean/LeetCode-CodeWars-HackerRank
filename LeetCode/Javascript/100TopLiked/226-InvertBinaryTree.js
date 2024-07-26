@@ -31,5 +31,18 @@ The number of nodes in the tree is in the range [0, 100].
  * @return {TreeNode}
  */
 var invertTree = function(root) {
-    
+    // If the root is null, the tree is empty, so return null
+    if (root === null) {
+        return null;
+    }
+    // Swap the left and right children of the current node
+    let temp = root.left;
+    root.left = root.right;
+    root.right = temp;
+    // Recursively invert the left subtree
+    invertTree(root.left);
+    // Recursively invert the right subtree
+    invertTree(root.right);
+    // Return the root of the inverted tree
+    return root;
 };
