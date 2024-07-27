@@ -34,5 +34,22 @@ Follow up: If the BST is modified often (i.e., we can do insert and delete opera
  * @return {number}
  */
 var kthSmallest = function(root, k) {
+    let count = 0;
+    let result = null;
     
+    const inorderTraversal = (node) => {
+        if (node === null) {
+            return;
+        }
+        inorderTraversal(node.left);
+        count++;
+        if (count === k) {
+            result = node.val;
+            return;
+        }
+        inorderTraversal(node.right);
+    };
+    
+    inorderTraversal(root);
+    return result;
 };
