@@ -40,5 +40,32 @@ p and q will exist in the tree.
  * @return {TreeNode}
  */
 var lowestCommonAncestor = function(root, p, q) {
-    
+    // If the root is null, there's no LCA, so return null
+    if (root === null) {
+        return null;
+    }
+    // If we find either p or q, we've reached one of the target nodes
+    if (root === p || root === q) {
+        return root;
+    }
+    // Recursively search for p and q in the left subtree
+    let left = lowestCommonAncestor(root.left, p, q);
+    // Recursively search for p and q in the right subtree
+    let right = lowestCommonAncestor(root.right, p, q);
+    // If both left and right are not null, it means we found p and q in different subtrees,
+    // so the current node is the LCA
+    if (left !== null && right !== null) {
+        return root;
+    }
+    // If only one of left or right is not null, it means we found one of the target nodes in that subtree,
+    // so the LCA is the node in that subtree
+    if (left !== null) {
+        return left;
+    }
+    if (right !== null) {
+        return right;
+    }
+    // If both left and right are null, it means neither p nor q was found in the current subtree,
+    // so return null
+    return null;
 };
