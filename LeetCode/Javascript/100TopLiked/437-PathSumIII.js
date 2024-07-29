@@ -32,6 +32,47 @@ The number of nodes in the tree is in the range [0, 1000].
  * @param {number} targetSum
  * @return {number}
  */
-var pathSum = function(root, targetSum) {
-    
-};
+class TreeNode {
+    constructor(val = 0, left = null, right = null) {
+        this.val = val;
+        this.left = left;
+        this.right = right;
+    }
+}
+
+// Function to calculate the number of paths that sum to a given value.
+function pathSum(root, targetSum) {
+    // Map to keep the cumulative sum and its frequency.
+    const prefixSumCount = new Map();
+
+    // Helper function to perform DFS on the tree and calculate paths.
+    const dfs = (node, currentSum) => {
+        if (!node) {
+            return 0;
+        }
+        // Update the current sum by adding the node's value.
+        currentSum += node.val;
+
+        // Get the number of times we have seen the currentSum - targetSum.
+        let pathCount = prefixSumCount.get(currentSum - targetSum) || 0;
+
+        // Update the count of the current sum in the map.
+        prefixSumCount.set(currentSum, (prefixSumCount.get(currentSum) || 0) + 1);
+
+        // Explore left and right subtrees.
+        pathCount += dfs(node.left, currentSum);
+        pathCount += dfs(node.right, currentSum);
+
+        // After returning from the recursion, decrement the frequency of the current sum.
+        prefixSumCount.set(currentSum, (prefixSumCount.get(currentSum) || 0) - 1);
+
+        // Return the total count of paths found.
+        return pathCount;
+    };
+
+    // Initialize the map with base case before the recursion.
+    prefixSumCount.set(0, 1);
+
+    // Start DFS from the root node with an initial sum of 0.
+    return dfs(root, 0);
+}
