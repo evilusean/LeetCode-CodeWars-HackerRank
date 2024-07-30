@@ -31,5 +31,23 @@ The number of nodes in the tree is in the range [1, 104].
  * @return {number}
  */
 var diameterOfBinaryTree = function(root) {
-    
+    let maxDiameter = 0; // Initialize the maximum diameter to 0
+
+    // Define a recursive helper function to calculate the depth of a subtree and update the maximum diameter
+    const dfs = (node) => {
+        if (node === null) { // Base case: If the node is null, return 0 (depth of an empty subtree)
+            return 0;
+        }
+        let leftDepth = dfs(node.left); // Recursively calculate the depth of the left subtree
+        let rightDepth = dfs(node.right); // Recursively calculate the depth of the right subtree
+        // Update the maximum diameter with the maximum of the current diameter (leftDepth + rightDepth) and the previous maximum diameter
+        maxDiameter = Math.max(maxDiameter, leftDepth + rightDepth);
+        // Return the maximum depth of the current subtree (1 + the maximum of leftDepth and rightDepth)
+        return 1 + Math.max(leftDepth, rightDepth);
+    };
+
+    // Call the dfs function to calculate the depth of the entire tree and update the maximum diameter
+    dfs(root);
+    // Return the maximum diameter
+    return maxDiameter;
 };
