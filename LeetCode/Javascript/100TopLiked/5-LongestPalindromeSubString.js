@@ -1,3 +1,20 @@
+/*
+https://leetcode.com/problems/longest-palindromic-substring/description/?envType=study-plan-v2&envId=top-100-liked
+Given a string s, return the longest palindromic substring  in s.
+
+Example 1:
+Input: s = "babad"
+Output: "bab"
+Explanation: "aba" is also a valid answer.
+
+Example 2:
+Input: s = "cbbd"
+Output: "bb"
+
+Constraints:
+1 <= s.length <= 1000
+s consist of only digits and English letters.
+*/
 /**
  * @param {string} s
  * @return {string}
