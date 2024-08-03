@@ -27,5 +27,25 @@ Constraints:
  * @return {number}
  */
 var uniquePaths = function(m, n) {
-    
+    // Create a 2D array to store the number of unique paths to each cell
+    const dp = new Array(m).fill(0).map(() => new Array(n).fill(0));
+
+    // Initialize the first row and column with 1, as there's only one way to reach each cell from the starting point
+    for (let i = 0; i < m; i++) {
+        dp[i][0] = 1;
+    }
+    for (let j = 0; j < n; j++) {
+        dp[0][j] = 1;
+    }
+
+    // Iterate through the grid, starting from the second row and column
+    for (let i = 1; i < m; i++) {
+        for (let j = 1; j < n; j++) {
+            // The number of unique paths to the current cell is the sum of the unique paths to the cell above and the cell to the left
+            dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+        }
+    }
+
+    // Return the number of unique paths to the bottom-right corner
+    return dp[m - 1][n - 1];
 };
