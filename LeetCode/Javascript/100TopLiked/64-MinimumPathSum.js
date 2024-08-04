@@ -24,5 +24,33 @@ n == grid[i].length
  * @return {number}
  */
 var minPathSum = function(grid) {
-    
+    const m = grid.length;
+    const n = grid[0].length;
+
+    // Create a 2D array to store the minimum path sum to each cell
+    const dp = new Array(m).fill(0).map(() => new Array(n).fill(0));
+
+    // Initialize the first cell with the value from the grid
+    dp[0][0] = grid[0][0];
+
+    // Initialize the first row (except the first cell)
+    for (let j = 1; j < n; j++) {
+        dp[0][j] = dp[0][j - 1] + grid[0][j];
+    }
+
+    // Initialize the first column (except the first cell)
+    for (let i = 1; i < m; i++) {
+        dp[i][0] = dp[i - 1][0] + grid[i][0];
+    }
+
+    // Iterate through the grid, starting from the second row and column
+    for (let i = 1; i < m; i++) {
+        for (let j = 1; j < n; j++) {
+            // The minimum path sum to the current cell is the minimum of the path sum from the cell above and the cell to the left
+            dp[i][j] = Math.min(dp[i - 1][j], dp[i][j - 1]) + grid[i][j];
+        }
+    }
+
+    // Return the minimum path sum to the bottom-right corner
+    return dp[m - 1][n - 1];
 };
