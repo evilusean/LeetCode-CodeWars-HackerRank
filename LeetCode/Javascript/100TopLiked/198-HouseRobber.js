@@ -28,17 +28,27 @@ Constraints:
  * @return {number}
  */
 var rob = function(nums) {
+    // If the input array is empty, return 0 as there's no house to rob
     if (nums.length === 0) {
         return 0;
     }
+    // If the input array has only one house, return the amount of money in that house
     if (nums.length === 1) {
         return nums[0];
     }
+    // Create a dynamic programming array dp of size nums.length to store the maximum amount of money that can be robbed up to each house
     let dp = new Array(nums.length).fill(0);
+    // Initialize dp[0] to the amount of money in the first house
     dp[0] = nums[0];
+    // Initialize dp[1] to the maximum amount of money that can be robbed from the first two houses
     dp[1] = Math.max(nums[0], nums[1]);
+    // Iterate through the houses starting from the third house (index 2)
     for (let i = 2; i < nums.length; i++) {
+        // For each house, the maximum amount of money that can be robbed is the maximum of:
+        // 1. The maximum amount of money that can be robbed up to the previous house (dp[i - 1])
+        // 2. The maximum amount of money that can be robbed up to the house before the previous house (dp[i - 2]) plus the amount of money in the current house (nums[i])
         dp[i] = Math.max(dp[i - 1], dp[i - 2] + nums[i]);
     }
+    // Return the maximum amount of money that can be robbed up to the last house (dp[nums.length - 1])
     return dp[nums.length - 1];
 };
