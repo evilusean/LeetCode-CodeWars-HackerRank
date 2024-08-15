@@ -26,5 +26,30 @@ Follow up: Can you come up with an algorithm that runs in O(n log(n)) time compl
  * @return {number}
  */
 var lengthOfLIS = function(nums) {
-    
-};  
+    if (nums.length === 0) {
+        return 0;
+    }
+    // tails[i] is the smallest tail of all increasing subsequences of length i+1
+    let tails = [nums[0]];
+    for (let i = 1; i < nums.length; i++) {
+        if (nums[i] > tails[tails.length - 1]) {
+            // if nums[i] is greater than the largest tail, it extends the longest subsequence
+            tails.push(nums[i]);
+        } else {
+            // binary search to find the smallest tail that is greater than or equal to nums[i]
+            let left = 0;
+            let right = tails.length - 1;
+            while (left < right) {
+                let mid = Math.floor((left + right) / 2);
+                if (tails[mid] < nums[i]) {
+                    left = mid + 1;
+                } else {
+                    right = mid;
+                }
+            }
+            // replace the smallest tail that is greater than or equal to nums[i] with nums[i]
+            tails[right] = nums[i];
+        }
+    }
+    return tails.length;
+};
