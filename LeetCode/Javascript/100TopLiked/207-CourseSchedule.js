@@ -23,5 +23,43 @@ To take course 1 you should have finished course 0, and to take course 0 you sho
  * @return {boolean}
  */
 var canFinish = function(numCourses, prerequisites) {
-    
+    // Create an adjacency list to represent the course dependencies.
+    const adjList = new Array(numCourses).fill(0).map(() => []);
+    for (const [course, pre] of prerequisites) {
+        adjList[pre].push(course);
+    }
+
+    // Create an array to track the indegree of each course.
+    const indegree = new Array(numCourses).fill(0);
+    for (const [course, pre] of prerequisites) {
+        indegree[course]++;
+    }
+
+    // Create a queue to store courses with an indegree of 0.
+    const queue = [];
+    for (let i = 0; i < numCourses; i++) {
+        if (indegree[i] === 0) {
+            queue.push(i);
+        }
+    }
+
+    // Initialize a counter to track the number of courses completed.
+    let count = 0;
+
+    // Perform a topological sort using the queue.
+    while (queue.length > 0) {
+        const course = queue.shift();
+        count++;
+
+        // Decrement the indegree of all courses that depend on the current course.
+        for (const neighbor of adjList[course]) {
+            indegree[neighbor]--;
+            if (indegree[neighbor] === 0) {
+                queue.push(neighbor);
+            }
+        }
+    }
+
+    // If all courses have been completed, return true. Otherwise, return false.
+    return count === numCourses;
 };
