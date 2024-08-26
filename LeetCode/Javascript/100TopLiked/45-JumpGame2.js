@@ -28,5 +28,18 @@ It's guaranteed that you can reach nums[n - 1].
  * @return {number}
  */
 var jump = function(nums) {
-    
-};  
+    let jumps = 0; // Initialize the number of jumps to 0
+    let currentReach = 0; // Initialize the current reachable index to 0
+    let maxReach = 0; // Initialize the maximum reachable index to 0
+
+    for (let i = 0; i < nums.length - 1; i++) { // Iterate through the array, excluding the last element
+        maxReach = Math.max(maxReach, i + nums[i]); // Update the maximum reachable index
+
+        if (i === currentReach) { // If we've reached the current reachable index
+            jumps++; // Increment the number of jumps
+            currentReach = maxReach; // Update the current reachable index to the maximum reachable index
+        }
+    }
+
+    return jumps; // Return the total number of jumps
+};
