@@ -24,5 +24,14 @@ Constraints:
  * @return {boolean}
  */
 var canJump = function(nums) {
-    
-};  
+    let farthestReach = 0; // Initialize the farthest reachable index to 0
+
+    for (let i = 0; i < nums.length; i++) { // Iterate through the array
+        if (i > farthestReach) { // If the current index is beyond the farthest reachable index, it means we cannot reach the last index
+            return false;
+        }
+        farthestReach = Math.max(farthestReach, i + nums[i]); // Update the farthest reachable index
+    }
+
+    return true; // If we reach here, it means we can reach the last index
+};
