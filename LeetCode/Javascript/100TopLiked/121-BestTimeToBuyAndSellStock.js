@@ -16,7 +16,7 @@ Input: prices = [7,6,4,3,1]
 Output: 0
 Explanation: In this case, no transactions are done and the max profit = 0.
 
-Constraints:
+Constraints:    
 1 <= prices.length <= 105
 0 <= prices[i] <= 104
 */
@@ -25,5 +25,16 @@ Constraints:
  * @return {number}
  */
 var maxProfit = function(prices) {
-    
+    let minPrice = Infinity; // Initialize the minimum price to a very large value
+    let maxProfit = 0; // Initialize the maximum profit to 0
+
+    for (let i = 0; i < prices.length; i++) { // Iterate through the array of prices
+        if (prices[i] < minPrice) { // If the current price is lower than the minimum price
+            minPrice = prices[i]; // Update the minimum price
+        } else if (prices[i] - minPrice > maxProfit) { // If the difference between the current price and the minimum price is greater than the maximum profit
+            maxProfit = prices[i] - minPrice; // Update the maximum profit
+        }
+    }
+
+    return maxProfit; // Return the maximum profit
 };
