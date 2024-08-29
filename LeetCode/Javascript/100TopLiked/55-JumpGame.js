@@ -34,4 +34,4 @@ var canJump = function(nums) {
     }
 
     return true; // If we reach here, it means we can reach the last index
-};
+};  
