@@ -32,5 +32,24 @@ Follow-up: Can you come up with an algorithm that is less than O(n2) time comple
  * @return {number[]}
  */
 var twoSum = function(nums, target) {
-    
+    // Create a Map to store the elements of the array and their indices
+    const map = new Map();
+
+    // Iterate through the array
+    for (let i = 0; i < nums.length; i++) {
+        // Calculate the complement, which is the difference between the target and the current element
+        const complement = target - nums[i];
+
+        // Check if the complement exists in the Map
+        if (map.has(complement)) {
+            // If the complement exists, return the index of the complement and the current index
+            return [map.get(complement), i];
+        }
+
+        // If the complement doesn't exist, add the current element and its index to the Map
+        map.set(nums[i], i);
+    }
+
+    // If no solution is found, return an empty array
+    return []; 
 };
