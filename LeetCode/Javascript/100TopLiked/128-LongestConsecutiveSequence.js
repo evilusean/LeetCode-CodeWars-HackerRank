@@ -21,5 +21,22 @@ Constraints:
  * @return {number}
  */
 var longestConsecutive = function(nums) {
-    
+    let longestSequenceLength = 0; // Initialize the length of the longest consecutive sequence to 0
+    const numSet = new Set(nums); // Create a Set to store the unique numbers from the input array
+
+    for (const num of numSet) { // Iterate through each number in the Set
+        if (!numSet.has(num - 1)) { // Check if the previous number (num - 1) is not present in the Set
+            let currentNum = num; // If the previous number is not present, it means the current number is the start of a potential consecutive sequence
+            let currentSequenceLength = 1; // Initialize the length of the current consecutive sequence to 1
+
+            while (numSet.has(currentNum + 1)) { // Keep checking for the next consecutive number (currentNum + 1) in the Set
+                currentNum++; // If the next consecutive number is present, increment the current number and the length of the current sequence
+                currentSequenceLength++;
+            }
+
+            longestSequenceLength = Math.max(longestSequenceLength, currentSequenceLength); // Update the length of the longest consecutive sequence if the current sequence is longer
+        }
+    }
+
+    return longestSequenceLength; // Return the length of the longest consecutive sequence found
 };
