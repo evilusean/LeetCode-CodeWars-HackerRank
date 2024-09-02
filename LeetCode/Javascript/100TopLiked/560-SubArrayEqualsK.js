@@ -22,5 +22,22 @@ Constraints:
  * @return {number}
  */
 var subarraySum = function(nums, k) {
-    
+    let count = 0; // Initialize count of subarrays with sum k to 0
+    let sum = 0; // Initialize running sum to 0
+    const map = new Map(); // Initialize a map to store cumulative sum frequencies
+    map.set(0, 1); // Initialize the map with sum 0 and frequency 1
+
+    for (let i = 0; i < nums.length; i++) { // Iterate through each element in the array
+        sum += nums[i]; // Calculate cumulative sum till current index
+
+        // If (cumulative sum - k) exists in the map, it means we have a subarray with sum k
+        if (map.has(sum - k)) {
+            count += map.get(sum - k); // Add the frequency of (cumulative sum - k) to the count
+        }
+
+        // Update the frequency of the current cumulative sum in the map
+        map.set(sum, (map.get(sum) || 0) + 1);
+    }
+
+    return count; // Return the total count of subarrays with sum k
 };
