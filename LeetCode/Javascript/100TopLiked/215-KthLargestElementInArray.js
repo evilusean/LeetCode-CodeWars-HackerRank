@@ -22,5 +22,21 @@ Constraints:
  * @return {number}
  */
 var findKthLargest = function(nums, k) {
-    
+    // Create a min-heap using a priority queue
+    const minHeap = new MinPriorityQueue();
+
+    // Iterate through the array
+    for (let i = 0; i < nums.length; i++) {
+        // Add the current element to the heap
+        minHeap.enqueue(nums[i]);
+
+        // If the heap size exceeds k, remove the minimum element
+        // This ensures that the heap always contains the k largest elements seen so far
+        if (minHeap.size() > k) {
+            minHeap.dequeue();
+        }
+    }
+
+    // After iterating through the array, the minimum element in the heap will be the kth largest element
+    return minHeap.front().element;
 };
