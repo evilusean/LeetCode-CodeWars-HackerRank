@@ -48,4 +48,4 @@ var groupAnagrams = function(strs) {
 
     // After processing all strings, extract the values (arrays of anagrams) from the 'anagramGroups' map and return them as a 2D array.
     return Array.from(anagramGroups.values());
-};
+};  

@@ -19,7 +19,7 @@ Constraints:
 /**
  * @param {number[]} nums
  * @param {number} k
- * @return {number}
+ * @return {number} 
  */
 var subarraySum = function(nums, k) {
     let count = 0; // Initialize count of subarrays with sum k to 0
