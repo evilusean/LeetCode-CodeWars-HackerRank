@@ -36,7 +36,8 @@ If all integer numbers from the stream are in the range [0, 100], how would you 
 If 99% of all integer numbers from the stream are in the range [0, 100], how would you optimize your solution?
 */
 var MedianFinder = function() {
-    
+    this.minHeap = new MinPriorityQueue(); // Stores the larger half of the data
+    this.maxHeap = new MaxPriorityQueue(); // Stores the smaller half of the data
 };
 
 /** 
@@ -44,14 +45,32 @@ var MedianFinder = function() {
  * @return {void}
  */
 MedianFinder.prototype.addNum = function(num) {
-    
+    // Add the number to the appropriate heap
+    if (this.maxHeap.isEmpty() || num <= this.maxHeap.front().element) {
+        this.maxHeap.enqueue(num);
+    } else {
+        this.minHeap.enqueue(num);
+    }
+
+    // Balance the heaps to ensure the size difference is at most 1
+    if (this.maxHeap.size() > this.minHeap.size() + 1) {
+        this.minHeap.enqueue(this.maxHeap.dequeue().element);
+    } else if (this.minHeap.size() > this.maxHeap.size()) {
+        this.maxHeap.enqueue(this.minHeap.dequeue().element);
+    }
 };
 
 /**
  * @return {number}
  */
 MedianFinder.prototype.findMedian = function() {
-    
+    // If the heaps have the same size, the median is the average of the top elements
+    if (this.maxHeap.size() === this.minHeap.size()) {
+        return (this.maxHeap.front().element + this.minHeap.front().element) / 2;
+    } else {
+        // Otherwise, the median is the top element of the larger heap
+        return this.maxHeap.front().element;
+    }
 };
 
 /** 
