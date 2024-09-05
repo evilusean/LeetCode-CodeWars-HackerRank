@@ -25,5 +25,29 @@ Follow up: Your algorithm's time complexity must be better than O(n log n), wher
  * @return {number[]}
  */
 var topKFrequent = function(nums, k) {
-    
+    // Create a map to store the frequency of each element
+    const frequencyMap = new Map();
+    // Iterate through the array and update the frequency of each element in the map
+    for (let num of nums) {
+        frequencyMap.set(num, (frequencyMap.get(num) || 0) + 1);
+    }
+    // Create a min-heap using a priority queue to store the k most frequent elements
+    const minHeap = new MinPriorityQueue({ priority: x => x[1] });
+    // Iterate through the frequency map
+    for (let [num, frequency] of frequencyMap) {
+        // Add the element and its frequency to the heap
+        minHeap.enqueue([num, frequency]);
+        // If the heap size exceeds k, remove the element with the minimum frequency
+        if (minHeap.size() > k) {
+            minHeap.dequeue();
+        }
+    }
+    // Create an array to store the k most frequent elements
+    const result = [];
+    // Iterate through the heap and add each element to the result array
+    while (minHeap.size() > 0) {
+        result.push(minHeap.dequeue().element[0]);
+    }
+    // Return the array of k most frequent elements
+    return result;
 };
