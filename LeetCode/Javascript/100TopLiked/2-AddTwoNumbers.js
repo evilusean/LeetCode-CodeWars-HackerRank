@@ -36,5 +36,27 @@ It is guaranteed that the list represents a number that does not have leading ze
  * @return {ListNode}
  */
 var addTwoNumbers = function(l1, l2) {
-    
+    let dummyHead = new ListNode(0); // Create a dummy node to simplify operations
+    let current = dummyHead; // Use 'current' to traverse and build the result list
+    let carry = 0; // Initialize carry to 0
+
+    while (l1 !== null || l2 !== null || carry !== 0) {
+        let sum = carry; // Start with the carry from the previous addition
+
+        // Add the values from l1 and l2 if they are not null
+        if (l1 !== null) {
+            sum += l1.val;
+            l1 = l1.next;
+        }
+        if (l2 !== null) {
+            sum += l2.val;
+            l2 = l2.next;
+        }
+
+        carry = Math.floor(sum / 10); // Calculate the new carry
+        current.next = new ListNode(sum % 10); // Create a new node with the units digit of the sum
+        current = current.next; // Move 'current' to the newly created node
+    }
+
+    return dummyHead.next; // Return the head of the result list (skipping the dummy node)
 };
