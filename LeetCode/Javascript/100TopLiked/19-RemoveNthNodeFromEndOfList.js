@@ -56,4 +56,4 @@ var removeNthFromEnd = function(head, n) {
 
     // Return the head of the modified list (next node after the dummy node)
     return dummy.next;
-};
+};  

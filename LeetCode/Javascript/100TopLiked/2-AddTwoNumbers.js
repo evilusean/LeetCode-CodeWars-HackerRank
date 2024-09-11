@@ -59,4 +59,4 @@ var addTwoNumbers = function(l1, l2) {
     }
 
     return dummyHead.next; // Return the head of the result list (skipping the dummy node)
-};
+}   ;
