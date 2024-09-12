@@ -36,5 +36,22 @@ The number of nodes in the list is in the range [0, 100].
  * @return {ListNode}
  */
 var swapPairs = function(head) {
-    
+    let dummy = new ListNode(0, head); // Create a dummy node to simplify operations
+    let prev = dummy; // Initialize 'prev' to the dummy node
+
+    while (head !== null && head.next !== null) {
+        let first = head; // The first node of the pair
+        let second = head.next; // The second node of the pair
+
+        // Swap the nodes
+        prev.next = second; // Connect 'prev' to the 'second' node
+        first.next = second.next; // Connect 'first' to the node after 'second'
+        second.next = first; // Connect 'second' to the 'first' node
+
+        // Move to the next pair
+        prev = first; // Update 'prev' to the 'first' node (which is now in the second position)
+        head = first.next; // Move 'head' to the next node after the swapped pair
+    }
+
+    return dummy.next; // Return the head of the modified list (next node after the dummy node)
 };
