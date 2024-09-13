@@ -34,5 +34,40 @@ Follow-up: Can you solve the problem in O(1) extra memory space?
  * @return {ListNode}
  */
 var reverseKGroup = function(head, k) {
-    
+    let dummy = new ListNode(0, head); // Create a dummy node to simplify operations
+    let groupPrev = dummy; // 'groupPrev' points to the node before the current group
+
+    while (true) {
+        let kth = getKth(groupPrev, k); // Find the kth node from 'groupPrev'
+        if (!kth) { // If there are less than k nodes remaining, break the loop
+            break;
+        }
+        let groupNext = kth.next; // 'groupNext' points to the node after the current group
+
+        // Reverse the group
+        let prev = kth.next; // 'prev' starts from the node after the current group
+        let curr = groupPrev.next; // 'curr' starts from the first node of the current group
+        while (curr !== groupNext) { // Iterate through the group
+            let tmp = curr.next; // Store the next node
+            curr.next = prev; // Reverse the link
+            prev = curr; // Move 'prev' forward
+            curr = tmp; // Move 'curr' forward
+        }
+
+        // Connect the reversed group to the previous and next groups
+        let tmp = groupPrev.next; // Store the first node of the reversed group
+        groupPrev.next = kth; // Connect 'groupPrev' to the new head of the reversed group
+        groupPrev = tmp; // Move 'groupPrev' to the last node of the reversed group (which was the first node before reversal)
+    }
+
+    return dummy.next; // Return the head of the modified list
 };
+
+// Helper function to find the kth node from a given starting node
+function getKth(curr, k) {
+    while (curr && k > 0) { // Iterate until we find the kth node or reach the end of the list
+        curr = curr.next;
+        k--;
+    }
+    return curr; // Return the kth node (or null if k is greater than the remaining nodes)
+}
