@@ -48,5 +48,28 @@ Node.random is null or is pointing to some node in the linked list.
  * @return {_Node}
  */
 var copyRandomList = function(head) {
-    
+    if (!head) { // If the list is empty, return null
+        return null;
+    }
+
+    let current = head; // Start from the head of the original list
+    const map = new Map(); // Create a map to store the mapping between original and copied nodes
+
+    // First pass: Create a copy of each node and store the mapping in the map
+    while (current) {
+        map.set(current, new _Node(current.val)); // Create a new node with the same value and store the mapping
+        current = current.next; // Move to the next node in the original list
+    }
+
+    current = head; // Reset current to the head of the original list
+
+    // Second pass: Set the next and random pointers of the copied nodes
+    while (current) {
+        const copiedNode = map.get(current); // Get the corresponding copied node from the map
+        copiedNode.next = map.get(current.next) || null; // Set the next pointer of the copied node
+        copiedNode.random = map.get(current.random) || null; // Set the random pointer of the copied node
+        current = current.next; // Move to the next node in the original list
+    }
+
+    return map.get(head); // Return the head of the copied list
 };
