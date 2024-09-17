@@ -41,5 +41,34 @@ Follow up: Can you solve it using O(1) (i.e. constant) memory?
  * @return {ListNode}
  */
 var detectCycle = function(head) {
-    
+    // If the list is empty or has only one node, there's no cycle
+    if (head === null || head.next === null) {
+        return null;
+    }
+
+    // Initialize two pointers, 'slow' and 'fast', both starting at the head
+    let slow = head;
+    let fast = head;
+
+    // Iterate through the list
+    while (fast !== null && fast.next !== null) {
+        slow = slow.next; // Move 'slow' one step forward
+        fast = fast.next.next; // Move 'fast' two steps forward
+
+        // If 'slow' and 'fast' meet at any point, there's a cycle
+        if (slow === fast) {
+            // Reset 'slow' to the head and keep 'fast' at the meeting point
+            slow = head;
+            // Move both pointers one step at a time
+            while (slow !== fast) {
+                slow = slow.next;
+                fast = fast.next;
+            }
+            // The meeting point is the start of the cycle
+            return slow;
+        }
+    }
+
+    // If 'fast' reaches the end of the list without meeting 'slow', there's no cycle
+    return null;
 };
