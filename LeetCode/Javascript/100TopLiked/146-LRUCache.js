@@ -36,7 +36,38 @@ At most 2 * 105 calls will be made to get and put.
  * @param {number} capacity
  */
 var LRUCache = function(capacity) {
-    
+    this.capacity = capacity; // Store the capacity of the cache
+    this.map = new Map(); // Use a Map to store key-value pairs
+    this.head = new Node(0, 0); // Create a dummy head node for the doubly linked list
+    this.tail = new Node(0, 0); // Create a dummy tail node for the doubly linked list
+    this.head.next = this.tail; // Connect the head to the tail
+    this.tail.prev = this.head; // Connect the tail to the head
+};
+
+// Define a Node class for the doubly linked list
+class Node {
+    constructor(key, value) {
+        this.key = key;
+        this.value = value;
+        this.prev = null;
+        this.next = null;
+    }
+}
+
+// Add a node to the head of the doubly linked list
+LRUCache.prototype.addNode = function(node) {
+    node.prev = this.head;
+    node.next = this.head.next;
+    this.head.next.prev = node;
+    this.head.next = node;
+};
+
+// Remove a node from the doubly linked list
+LRUCache.prototype.removeNode = function(node) {
+    let prev = node.prev;
+    let next = node.next;
+    prev.next = next;
+    next.prev = prev;
 };
 
 /** 
@@ -44,7 +75,14 @@ var LRUCache = function(capacity) {
  * @return {number}
  */
 LRUCache.prototype.get = function(key) {
-    
+    if (this.map.has(key)) { // If the key exists in the cache
+        let node = this.map.get(key); // Get the node associated with the key
+        this.removeNode(node); // Remove the node from its current position
+        this.addNode(node); // Add the node to the head of the list (most recently used)
+        return node.value; // Return the value of the node
+    } else {
+        return -1; // If the key doesn't exist, return -1
+    }
 };
 
 /** 
@@ -53,7 +91,21 @@ LRUCache.prototype.get = function(key) {
  * @return {void}
  */
 LRUCache.prototype.put = function(key, value) {
-    
+    if (this.map.has(key)) { // If the key already exists
+        let node = this.map.get(key); // Get the existing node
+        node.value = value; // Update the value of the node
+        this.removeNode(node); // Remove the node from its current position
+        this.addNode(node); // Add the node to the head of the list (most recently used)
+    } else {
+        let node = new Node(key, value); // Create a new node
+        this.map.set(key, node); // Add the node to the map
+        this.addNode(node); // Add the node to the head of the list
+        if (this.map.size > this.capacity) { // If the cache exceeds its capacity
+            let leastRecentlyUsed = this.tail.prev; // Get the least recently used node (tail's previous node)
+            this.removeNode(leastRecentlyUsed); // Remove the least recently used node from the list
+            this.map.delete(leastRecentlyUsed.key); // Remove the least recently used node from the map
+        }
+    }
 };
 
 /** 
