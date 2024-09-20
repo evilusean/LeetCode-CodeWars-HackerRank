@@ -63,5 +63,17 @@ Follow up: Could you write a solution that runs in O(m + n) time and use only O(
  * @return {ListNode}
  */
 var getIntersectionNode = function(headA, headB) {
-    
+    let p1 = headA; // Initialize a pointer p1 to the head of list A
+    let p2 = headB; // Initialize a pointer p2 to the head of list B
+
+    // Iterate until both pointers point to the same node or reach the end of their respective lists
+    while (p1 !== p2) {
+        // Move p1 to the next node in list A, or to the head of list B if p1 has reached the end of list A
+        p1 = p1 ? p1.next : headB;
+        // Move p2 to the next node in list B, or to the head of list A if p2 has reached the end of list B
+        p2 = p2 ? p2.next : headA;
+    }
+
+    // Return the node where the intersection occurs, or null if there is no intersection
+    return p1;
 };
