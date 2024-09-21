@@ -33,5 +33,17 @@ Could you implement both?
  * @return {ListNode}
  */
 var reverseList = function(head) {
-    
+    let prev = null; // Initialize the previous node to null
+    let curr = head; // Initialize the current node to the head of the list
+    let next = null; // Initialize the next node to null
+
+    // Iterate through the linked list
+    while (curr !== null) {
+        next = curr.next; // Store the next node
+        curr.next = prev; // Reverse the pointer of the current node
+        prev = curr; // Move the previous node to the current node
+        curr = next; // Move the current node to the next node
+    }
+
+    return prev; // Return the new head of the reversed list (which is the last node of the original list)
 };
