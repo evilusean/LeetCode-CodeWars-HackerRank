@@ -27,5 +27,44 @@ Could you devise a constant space solution?
  * @return {void} Do not return anything, modify matrix in-place instead.
  */
 var setZeroes = function(matrix) {
-    
+    const m = matrix.length;
+    const n = matrix[0].length;
+    let firstRowZero = false; // Flag to indicate if the first row should be zeroed out
+    let firstColZero = false; // Flag to indicate if the first column should be zeroed out
+
+    // Iterate through the matrix to determine if the first row or column should be zeroed out
+    for (let i = 0; i < m; i++) {
+        for (let j = 0; j < n; j++) {
+            if (matrix[i][j] === 0) {
+                if (i === 0) firstRowZero = true;
+                if (j === 0) firstColZero = true;
+                matrix[i][0] = 0; // Mark the first element of the current row as 0
+                matrix[0][j] = 0; // Mark the first element of the current column as 0
+            }
+        }
+    }
+
+    // Iterate through the matrix (excluding the first row and column)
+    // and set elements to 0 based on the markers in the first row and column
+    for (let i = 1; i < m; i++) {
+        for (let j = 1; j < n; j++) {
+            if (matrix[i][0] === 0 || matrix[0][j] === 0) {
+                matrix[i][j] = 0;
+            }
+        }
+    }
+
+    // Zero out the first row if the flag is set
+    if (firstRowZero) {
+        for (let j = 0; j < n; j++) {
+            matrix[0][j] = 0;
+        }
+    }
+
+    // Zero out the first column if the flag is set
+    if (firstColZero) {
+        for (let i = 0; i < m; i++) {
+            matrix[i][0] = 0;
+        }
+    }
 };
