@@ -28,5 +28,24 @@ All the integers in each column are sorted in ascending order.
  * @return {boolean}
  */
 var searchMatrix = function(matrix, target) {
-    
+    // Start from the top right corner of the matrix
+    let row = 0;
+    let col = matrix[0].length - 1;
+
+    // While we are within the bounds of the matrix
+    while (row >= 0 && row < matrix.length && col >= 0 && col < matrix[0].length) {
+        // If the current element is equal to the target, return true
+        if (matrix[row][col] === target) {
+            return true;
+        } else if (matrix[row][col] > target) {
+            // If the current element is greater than the target, move one column to the left
+            col--;
+        } else {
+            // If the current element is less than the target, move one row down
+            row++;
+        }
+    }
+
+    // If the target is not found, return false
+    return false;
 };
