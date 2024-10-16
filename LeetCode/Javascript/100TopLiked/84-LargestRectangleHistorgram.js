@@ -22,5 +22,30 @@ Constraints:
  * @return {number}
  */
 var largestRectangleArea = function(heights) {
-    
+    let maxArea = 0; // Initialize the maximum area to 0
+    const stack = []; // Initialize an empty stack to store indices of heights
+
+    // Iterate through the heights array
+    for (let i = 0; i <= heights.length; i++) {
+        // Calculate the current height (consider 0 height for the end of the array)
+        let currentHeight = i === heights.length ? 0 : heights[i];
+
+        // While the stack is not empty and the current height is less than the height at the top of the stack
+        while (stack.length > 0 && currentHeight < heights[stack[stack.length - 1]]) {
+            // Pop the index of the top height from the stack
+            const topIndex = stack.pop();
+            const height = heights[topIndex];
+
+            // Calculate the width of the rectangle
+            const width = stack.length === 0 ? i : i - stack[stack.length - 1] - 1;
+
+            // Calculate the area of the rectangle and update maxArea if necessary
+            maxArea = Math.max(maxArea, height * width);
+        }
+        // Push the current index onto the stack
+        stack.push(i);
+    }
+
+    // Return the maximum area found
+    return maxArea;
 };
