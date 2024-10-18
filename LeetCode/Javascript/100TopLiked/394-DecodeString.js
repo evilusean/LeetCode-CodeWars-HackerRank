@@ -33,5 +33,28 @@ All the integers in s are in the range [1, 300].
  * @return {string}
  */
 var decodeString = function(s) {
-    
+    let stack = []; // Initialize an empty stack to store characters, substrings, and repeat counts
+    let currentNum = 0; // Initialize a variable to keep track of the current repeat count
+    let currentString = ''; // Initialize a variable to store the current decoded substring
+
+    for (let i = 0; i < s.length; i++) { // Iterate through each character in the encoded string
+        let char = s[i]; // Get the current character
+
+        if (!isNaN(char)) { // If the character is a digit
+            currentNum = currentNum * 10 + parseInt(char); // Construct the repeat count by multiplying the previous value by 10 and adding the current digit
+        } else if (char === '[') { // If the character is an opening bracket '['
+            stack.push(currentString); // Push the current decoded substring onto the stack
+            stack.push(currentNum); // Push the current repeat count onto the stack
+            currentString = ''; // Reset the current decoded substring to an empty string
+            currentNum = 0; // Reset the current repeat count to 0
+        } else if (char === ']') { // If the character is a closing bracket ']'
+            let prevNum = stack.pop(); // Pop the repeat count from the stack
+            let prevString = stack.pop(); // Pop the previous decoded substring from the stack
+            currentString = prevString + currentString.repeat(prevNum); // Repeat the current decoded substring 'prevNum' times and prepend the previous decoded substring
+        } else { // If the character is a letter
+            currentString += char; // Append the letter to the current decoded substring
+        }
+    }
+
+    return currentString; // Return the final decoded string
 };
