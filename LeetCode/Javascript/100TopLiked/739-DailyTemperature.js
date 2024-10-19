@@ -26,5 +26,18 @@ Constraints:
  * @return {number[]}
  */
 var dailyTemperatures = function(temperatures) {
-    
+    const n = temperatures.length;
+    const answer = new Array(n).fill(0); // Initialize the result array with 0s
+    const stack = []; // Use a stack to keep track of indices of temperatures we haven't found a warmer day for yet
+
+    for (let i = 0; i < n; i++) {
+        // For each temperature, check if there are previous temperatures that are colder
+        while (stack.length > 0 && temperatures[i] > temperatures[stack[stack.length - 1]]) {
+            const prevIndex = stack.pop(); // Get the index of the previous colder temperature
+            answer[prevIndex] = i - prevIndex; // Calculate the number of days to wait
+        }
+        stack.push(i); // Push the current index onto the stack
+    }
+
+    return answer; // Return the result array
 };
