@@ -27,5 +27,24 @@ n == height.length
  * @return {number}
  */
 var maxArea = function(height) {
-    
+    let maxWater = 0; // Initialize the maximum water to 0
+    let left = 0; // Initialize the left pointer to the beginning of the array
+    let right = height.length - 1; // Initialize the right pointer to the end of the array
+
+    // Iterate through the array using two pointers
+    while (left < right) {
+        // Calculate the current area: minimum height between the two lines * distance between them
+        let currentArea = Math.min(height[left], height[right]) * (right - left);
+        // Update the maximum water if the current area is greater
+        maxWater = Math.max(maxWater, currentArea);
+
+        // Move the pointer pointing to the shorter line inwards
+        if (height[left] < height[right]) {
+            left++;
+        } else {
+            right--;
+        }
+    }
+
+    return maxWater; // Return the maximum water found
 };
