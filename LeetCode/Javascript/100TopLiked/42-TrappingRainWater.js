@@ -24,5 +24,32 @@ n == height.length
  * @return {number}
  */
 var trap = function(height) {
-    
+    let n = height.length;
+    if (n === 0) {
+        return 0;
+    }
+
+    let leftMax = new Array(n).fill(0); // Array to store the maximum height to the left of each bar
+    let rightMax = new Array(n).fill(0); // Array to store the maximum height to the right of each bar
+    let water = 0; // Initialize the total trapped water to 0
+
+    // Calculate the maximum height to the left of each bar
+    leftMax[0] = height[0];
+    for (let i = 1; i < n; i++) {
+        leftMax[i] = Math.max(leftMax[i - 1], height[i]);
+    }
+
+    // Calculate the maximum height to the right of each bar
+    rightMax[n - 1] = height[n - 1];
+    for (let i = n - 2; i >= 0; i--) {
+        rightMax[i] = Math.max(rightMax[i + 1], height[i]);
+    }
+
+    // Calculate the trapped water for each bar
+    for (let i = 0; i < n; i++) {
+        // The amount of water trapped at a bar is the minimum of the maximum height to the left and right, minus the height of the bar itself
+        water += Math.min(leftMax[i], rightMax[i]) - height[i];
+    }
+
+    return water; // Return the total trapped water
 };
