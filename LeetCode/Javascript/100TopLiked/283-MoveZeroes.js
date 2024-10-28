@@ -23,5 +23,16 @@ Follow up: Could you minimize the total number of operations done?
  * @return {void} Do not return anything, modify nums in-place instead.
  */
 var moveZeroes = function(nums) {
-    
+    let nonZeroIndex = 0; // Index to track the position for placing the next non-zero element
+
+    // Iterate through the array
+    for (let i = 0; i < nums.length; i++) {
+        // If the current element is non-zero
+        if (nums[i] !== 0) {
+            // Swap the current element with the element at nonZeroIndex
+            [nums[nonZeroIndex], nums[i]] = [nums[i], nums[nonZeroIndex]];
+            // Increment nonZeroIndex to the next position for a non-zero element
+            nonZeroIndex++;
+        }
+    }
 };
