@@ -28,5 +28,30 @@ Constraints:
  * @return {number}
  */
 var firstMissingPositive = function(nums) {
-    
+    // Step 1: Replace negative numbers with zeros
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] < 0) nums[i] = 0;
+    }
+
+    // Step 2: Use array as a marker
+    for (let i = 0; i < nums.length; i++) {
+        const val = Math.abs(nums[i]);
+        if (1 <= val && val <= nums.length) {
+            if (nums[val - 1] === 0) {
+                nums[val - 1] = -val;
+            } else {
+                nums[val - 1] = -Math.abs(nums[val - 1]);
+            }
+        }
+    }
+
+    // Step 3: Find the first missing positive
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] >= 0) {
+            return i + 1;
+        }
+    }
+
+    // If all positives are present, return length + 1
+    return nums.length + 1;
 };
