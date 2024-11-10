@@ -30,5 +30,15 @@ try coding another solution using the divide and conquer approach,
  * @return {number}
  */
 var maxSubArray = function(nums) {
-    
+    let maxSum = nums[0]; // Initialize maxSum with the first element
+    let currentSum = nums[0]; // Initialize currentSum with the first element
+
+    for (let i = 1; i < nums.length; i++) {
+        // If currentSum becomes negative, reset it to 0 and start a new subarray
+        currentSum = Math.max(nums[i], currentSum + nums[i]);
+        // Update maxSum if the currentSum is greater
+        maxSum = Math.max(maxSum, currentSum);
+    }
+
+    return maxSum;
 };
