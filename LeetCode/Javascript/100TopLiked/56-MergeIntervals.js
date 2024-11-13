@@ -25,5 +25,29 @@ intervals[i].length == 2
  * @return {number[][]}
  */
 var merge = function(intervals) {
-    
+    // If the input array is empty or has only one interval, return it as is
+    if (intervals.length <= 1) {
+        return intervals;
+    }
+    // Sort the intervals based on their starting points
+    intervals.sort((a, b) => a[0] - b[0]);
+    // Initialize the result array with the first interval
+    const result = [intervals[0]];
+    // Iterate through the sorted intervals starting from the second interval
+    for (let i = 1; i < intervals.length; i++) {
+        // Get the last interval in the result array
+        const lastInterval = result[result.length - 1];
+        // Get the current interval
+        const currentInterval = intervals[i];
+        // Check if the current interval overlaps with the last interval in the result array
+        if (currentInterval[0] <= lastInterval[1]) {
+            // If they overlap, merge the intervals by updating the end point of the last interval in the result array
+            lastInterval[1] = Math.max(lastInterval[1], currentInterval[1]);
+        } else {
+            // If they don't overlap, add the current interval to the result array
+            result.push(currentInterval);
+        }
+    }
+    // Return the result array containing the merged intervals
+    return result;
 };
