@@ -27,5 +27,23 @@ Follow up: Could you come up with a one-pass algorithm using only constant extra
  * @return {void} Do not return anything, modify nums in-place instead.
  */
 var sortColors = function(nums) {
-    
+    let low = 0; // Pointer for the end of the '0' section
+    let mid = 0; // Pointer for the end of the '1' section
+    let high = nums.length - 1; // Pointer for the beginning of the '2' section
+
+    while (mid <= high) { // Iterate while the middle pointer is within or equal to the high pointer
+        if (nums[mid] === 0) {
+            // If the element at the middle pointer is 0, swap it with the element at the low pointer and increment both low and mid pointers
+            [nums[low], nums[mid]] = [nums[mid], nums[low]];
+            low++;
+            mid++;
+        } else if (nums[mid] === 1) {
+            // If the element at the middle pointer is 1, just increment the mid pointer
+            mid++;
+        } else {
+            // If the element at the middle pointer is 2, swap it with the element at the high pointer and decrement the high pointer
+            [nums[mid], nums[high]] = [nums[high], nums[mid]];
+            high--;
+        }
+    }
 };
