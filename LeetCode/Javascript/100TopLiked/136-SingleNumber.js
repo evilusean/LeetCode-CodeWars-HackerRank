@@ -27,5 +27,12 @@ Each element in the array appears twice except for one element which appears onl
  * @return {number}
  */
 var singleNumber = function(nums) {
-    
+    let result = 0; // Initialize the result to 0
+    // Iterate through the nums array
+    for (let i = 0; i < nums.length; i++) {
+        // Use the bitwise XOR operator to find the single number
+        result ^= nums[i];
+    }
+    // Return the result, which will be the single number that appeared only once
+    return result;
 };
