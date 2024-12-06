@@ -71,4 +71,4 @@ var detectCycle = function(head) {
 
     // If 'fast' reaches the end of the list without meeting 'slow', there's no cycle
     return null;
-};
+};  
