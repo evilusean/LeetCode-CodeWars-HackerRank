@@ -26,6 +26,23 @@ Follow up: Can you solve the problem in O(1) extra space complexity?
  * @param {number[]} nums
  * @return {number[]}
  */
-var productExceptSelf = function(nums) {
-    
-};
+function productExceptSelf(nums) {
+    const n = nums.length;
+    const answer = new Array(n).fill(1);
+
+    // Calculate products of elements to the left of each index
+    let leftProduct = 1;
+    for (let i = 0; i < n; i++) {
+        answer[i] = leftProduct; // Set the left product for the current index
+        leftProduct *= nums[i];   // Update the left product
+    }
+
+    // Calculate products of elements to the right of each index
+    let rightProduct = 1;
+    for (let i = n - 1; i >= 0; i--) {
+        answer[i] *= rightProduct; // Multiply with the right product
+        rightProduct *= nums[i];    // Update the right product
+    }
+
+    return answer;
+}
