@@ -33,6 +33,23 @@ Can you solve the problem in linear runtime complexity?
  * @param {number[]} nums
  * @return {number}
  */
-var findDuplicate = function(nums) {
-    
-};
+function findDuplicate(nums) {
+    // Step 1: Initialize the tortoise and hare
+    let tortoise = nums[0];
+    let hare = nums[0];
+
+    // Step 2: Find the intersection point in the cycle
+    do {
+        tortoise = nums[tortoise]; // Move tortoise by 1 step
+        hare = nums[nums[hare]];    // Move hare by 2 steps
+    } while (tortoise !== hare);
+
+    // Step 3: Find the entrance to the cycle
+    tortoise = nums[0]; // Start from the beginning
+    while (tortoise !== hare) {
+        tortoise = nums[tortoise]; // Move tortoise by 1 step
+        hare = nums[hare];          // Move hare by 1 step
+    }
+
+    return hare; // The duplicate number
+}
